@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.time.manager.common</groupId>
+        <artifactId>time-manager-common</artifactId>
+        <version>0.0.1</version>
+    </parent>
+    <groupId>com.time.manager.common.swagger</groupId>
+    <artifactId>time-manager-common-swagger</artifactId>
+    <version>0.0.1</version>
+    <packaging>jar</packaging>
+    <name>time-manager-common-swagger</name>
+    <description>swagger</description>
+
+    <dependencies>
+        <!-- swagger-->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <!--在引用时请在maven中央仓库搜索最新版本号-->
+            <version>2.0.2</version>
+        </dependency>
+    </dependencies>
+
+</project>
