@@ -23,6 +23,7 @@
     <modules>
         <module>time-manager-cms</module>
         <module>time-manager-common</module>
+        <module>time-manager-generator</module>
     </modules>
 
     <dependencies>

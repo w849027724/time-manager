@@ -1,0 +1,28 @@
+################# 代码生成配置start ##############
+spring:
+  datasource:
+    #配置成要生成的数据源
+    url: jdbc:mysql://149.28.213.252:3306/time_manager?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+
+global:
+  config:
+    author: wlj
+    model: time-manager-cms
+
+package:
+  config:
+    #业务模块名(包名)
+    biz-module: cms
+    #父目录路径
+    parent-path: com.time.manager.cms
+strategy:
+  config:
+    #实体继承父类完整路径
+    super-entity-class: com.time.manage.common.mybatis.entity.BaseEntity
+    #要生成的表名，多个表以逗号分隔
+    table-name: label_info,message_info,plan_info,plan_stat,sys_params,sys_user,user_exper,user_info,user_stat
+################# 代码生成配置end ##############
+

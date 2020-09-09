@@ -13,8 +13,11 @@
     <packaging>pom</packaging>
     <name>time-manager-common</name>
     <description>common</description>
+
     <modules>
         <module>time-manager-common-core</module>
+        <module>time-manager-common-mybatis</module>
+        <module>time-manager-common-swagger</module>
     </modules>
 
 </project>
