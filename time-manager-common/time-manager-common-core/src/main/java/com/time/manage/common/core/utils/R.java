@@ -26,7 +26,7 @@ public class R<T> implements Serializable {
 
     @Getter
     @Setter
-    @ApiModelProperty(value = "返回代码：成功=0，失败=-1")
+    @ApiModelProperty(value = "返回代码：成功=200，失败=500")
     private int code;
 
     @Getter

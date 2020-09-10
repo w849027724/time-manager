@@ -1,3 +1,6 @@
+server:
+  port: 30081
+
 ################# 代码生成配置start ##############
 spring:
   datasource:
@@ -23,6 +26,6 @@ strategy:
     #实体继承父类完整路径
     super-entity-class: com.time.manage.common.mybatis.entity.BaseEntity
     #要生成的表名，多个表以逗号分隔
-    table-name: label_info,message_info,plan_info,plan_stat,sys_params,sys_user,user_exper,user_info,user_stat
+    table-name: plan_info
 ################# 代码生成配置end ##############
 

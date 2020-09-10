@@ -34,7 +34,7 @@ public class UserExper extends BaseEntity<UserExper> {
     private Long userId;
 
     @ApiModelProperty(value = "用户称号")
-    private String lableCode;
+    private String labelCode;
 
     @ApiModelProperty(value = "用户经验")
     private Long userExper;

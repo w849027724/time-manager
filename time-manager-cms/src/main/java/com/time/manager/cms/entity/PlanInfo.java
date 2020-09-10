@@ -12,13 +12,9 @@ import lombok.experimental.Accessors;
 import java.time.LocalDateTime;
 
 /**
- * <p>
- *
- * </p>
- *
  * @author wlj
  * @Title: PlanInfoService
- * @date 2020-09-09
+ * @date 2020-09-10
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -31,6 +27,12 @@ public class PlanInfo extends BaseEntity<PlanInfo> {
     @ApiModelProperty(value = "计划id")
     @TableId(value = "plan_id", type = IdType.AUTO)
     private Long planId;
+
+    @ApiModelProperty(value = "计划状态 1：未开始  2：进行中 3：未完成 4：已完成")
+    private Integer planStatus;
+
+    @ApiModelProperty(value = "用户id")
+    private Long userId;
 
     @ApiModelProperty(value = "计划名字")
     private String planName;
