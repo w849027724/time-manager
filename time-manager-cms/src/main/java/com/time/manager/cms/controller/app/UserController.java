@@ -78,7 +78,6 @@ public class UserController {
                 .setPlanFinish(0)
                 .setPlanTotal(0);
         userStatService.save(userStat);
-
         return R.ok();
     }
 
