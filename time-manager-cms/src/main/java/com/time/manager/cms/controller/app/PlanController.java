@@ -20,7 +20,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/app/plan")
-@Api(tags = "app用户管理")
+@Api(tags = "app计划管理")
 @RequiredArgsConstructor
 public class PlanController {
     private final PlanInfoService planInfoService;
