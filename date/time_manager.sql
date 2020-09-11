@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 149.28.213.252
+ Source Server         : mysql-local
  Source Server Type    : MySQL
  Source Server Version : 50730
- Source Host           : 149.28.213.252:3306
+ Source Host           : 127.0.0.1:3306
  Source Schema         : time_manager
 
  Target Server Type    : MySQL
  Target Server Version : 50730
  File Encoding         : 65001
 
- Date: 11/09/2020 16:50:39
+ Date: 11/09/2020 18:31:51
 */
 
 SET NAMES utf8mb4;
@@ -32,7 +32,7 @@ CREATE TABLE `label_info`  (
   `modified_by` bigint(20) NOT NULL,
   `modified_time` datetime(0) NOT NULL,
   PRIMARY KEY (`label_info_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of label_info
@@ -52,7 +52,7 @@ CREATE TABLE `message_info`  (
   `modified_by` bigint(20) NOT NULL,
   `modified_time` datetime(0) NOT NULL,
   PRIMARY KEY (`message_info_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of message_info
@@ -76,7 +76,7 @@ CREATE TABLE `plan_info`  (
   `modified_by` bigint(20) NOT NULL,
   `modified_time` datetime(0) NOT NULL,
   PRIMARY KEY (`plan_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of plan_info
@@ -98,7 +98,7 @@ CREATE TABLE `plan_stat`  (
   `modified_by` bigint(20) NOT NULL,
   `modified_time` datetime(0) NOT NULL,
   PRIMARY KEY (`plan_stat_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of plan_stat
@@ -119,7 +119,7 @@ CREATE TABLE `sys_params`  (
   `modified_by` bigint(20) NOT NULL,
   `modified_time` datetime(0) NOT NULL,
   PRIMARY KEY (`sys_params_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_params
@@ -138,7 +138,7 @@ CREATE TABLE `sys_user`  (
   `modified_by` bigint(20) NOT NULL,
   `modified_time` datetime(0) NOT NULL,
   PRIMARY KEY (`sys_user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user
@@ -158,11 +158,13 @@ CREATE TABLE `user_exper`  (
   `modified_by` bigint(20) NOT NULL,
   `modified_time` datetime(0) NOT NULL,
   PRIMARY KEY (`user_exper_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '经验和计划的秒数挂钩' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '经验和计划的秒数挂钩' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user_exper
 -- ----------------------------
+INSERT INTO `user_exper` VALUES (1, 2, '1', 0, 0, '2020-09-11 17:47:13', 0, '2020-09-11 17:47:13');
+INSERT INTO `user_exper` VALUES (2, 3, '1', 0, 0, '2020-09-11 17:47:56', 0, '2020-09-11 17:47:56');
 
 -- ----------------------------
 -- Table structure for user_info
@@ -179,12 +181,14 @@ CREATE TABLE `user_info`  (
   `modified_by` bigint(20) NOT NULL,
   `modified_time` datetime(0) NOT NULL,
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user_info
 -- ----------------------------
 INSERT INTO `user_info` VALUES (1, 'admin', '123456', NULL, 'admin', 1, '2020-09-10 10:58:41', 1, '2020-09-10 10:58:45');
+INSERT INTO `user_info` VALUES (2, 'aaa', 'aaa', NULL, 'aaa', 0, '2020-09-11 17:46:59', 0, '2020-09-11 17:46:59');
+INSERT INTO `user_info` VALUES (3, 'bbb', 'bbb', NULL, 'bbb', 0, '2020-09-11 17:47:53', 0, '2020-09-11 17:47:53');
 
 -- ----------------------------
 -- Table structure for user_stat
@@ -201,10 +205,12 @@ CREATE TABLE `user_stat`  (
   `modified_by` bigint(20) NOT NULL,
   `modified_time` datetime(0) NOT NULL,
   PRIMARY KEY (`user_stat_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user_stat
 -- ----------------------------
+INSERT INTO `user_stat` VALUES (1, 2, 0, 0, 0, 0, '2020-09-11 17:47:20', 0, '2020-09-11 17:47:20');
+INSERT INTO `user_stat` VALUES (2, 3, 0, 0, 0, 0, '2020-09-11 17:47:56', 0, '2020-09-11 17:47:56');
 
 SET FOREIGN_KEY_CHECKS = 1;
