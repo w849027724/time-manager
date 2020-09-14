@@ -27,7 +27,7 @@ public class FindController {
     private final PlanStatService planStatService;
 
 
-    @GetMapping("/find/list")
+    @GetMapping("/list")
     @ApiOperation("发现列表")
     public R findList() {
         List<PlanInfo> list = planInfoService.list();
@@ -35,7 +35,7 @@ public class FindController {
     }
 
 
-    @PutMapping("/find/fabulous")
+    @PutMapping("/fabulous")
     @ApiOperation("用户点赞")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "planId", value = "planId", required = true, dataType = "Long", paramType = "query")
@@ -52,7 +52,7 @@ public class FindController {
         return R.ok();
     }
 
-    @PutMapping("/find/join")
+    @PutMapping("/join")
     @ApiOperation("用户参加")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "planId", value = "planId", required = true, dataType = "Long", paramType = "query"),

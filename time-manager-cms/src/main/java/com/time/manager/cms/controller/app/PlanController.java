@@ -27,7 +27,7 @@ public class PlanController {
     private final PlanStatService planStatService;
 
 
-    @GetMapping("/get/plan/list")
+    @GetMapping("/list")
     @ApiOperation("我的计划列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "userId", required = true, dataType = "Long", paramType = "query")
@@ -40,7 +40,7 @@ public class PlanController {
     }
 
 
-    @PostMapping("/add/plan")
+    @PostMapping("/add")
     @ApiOperation("发布计划")
     public R register(@RequestBody PlanInfo planInfo) {
         planInfoService.save(planInfo);
