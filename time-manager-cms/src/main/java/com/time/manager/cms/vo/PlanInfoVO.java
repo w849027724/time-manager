@@ -54,4 +54,10 @@ public class PlanInfoVO implements Serializable {
     @ApiModelProperty(value = "计划参与用户（json格式   user_id集合 英文逗号隔开）")
     private String planJoinUser;
 
+    @ApiModelProperty(value = "用户头像")
+    private String userAvatar;
+
+    @ApiModelProperty(value = "用户昵称")
+    private String userNickname;
+
 }

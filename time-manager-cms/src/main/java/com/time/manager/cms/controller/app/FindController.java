@@ -5,12 +5,12 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.time.manage.common.core.utils.R;
 import com.time.manager.cms.entity.PlanInfo;
 import com.time.manager.cms.entity.PlanStat;
+import com.time.manager.cms.entity.UserInfo;
 import com.time.manager.cms.service.PlanInfoService;
 import com.time.manager.cms.service.PlanStatService;
+import com.time.manager.cms.service.UserInfoService;
 import com.time.manager.cms.vo.PlanInfoVO;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -29,6 +29,7 @@ import java.util.List;
 public class FindController {
     private final PlanInfoService planInfoService;
     private final PlanStatService planStatService;
+    private final UserInfoService userInfoService;
 
 
     @GetMapping("/list")
@@ -43,6 +44,10 @@ public class FindController {
             PlanStat one = planStatService.getOne(Wrappers.<PlanStat>query().lambda().eq(PlanStat::getPlanId, planId));
             if (ObjectUtil.isNotNull(one)) {
                 BeanUtils.copyProperties(one, planInfoVO);
+            }
+            UserInfo one1 = userInfoService.getOne(Wrappers.<UserInfo>query().lambda().eq(UserInfo::getUserId, e.getUserId()));
+            if (ObjectUtil.isNotNull(one1)) {
+                planInfoVO.setUserAvatar(one1.getUserAvatar()).setUserNickname(one1.getUserNickname());
             }
             result.add(planInfoVO);
         });

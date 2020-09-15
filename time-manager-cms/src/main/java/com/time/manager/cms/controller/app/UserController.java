@@ -64,6 +64,7 @@ public class UserController {
     @ApiOperation("用户登录")
     public R register(@RequestBody UserInfo userInfo) {
         // 注册
+        userInfo.setUserAvatar("");
         userInfoService.save(userInfo);
         // 用户经验
         UserExper userExper = new UserExper()
