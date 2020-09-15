@@ -34,7 +34,7 @@ public class PlanInfoVO implements Serializable {
     private Integer planType;
 
     @ApiModelProperty(value = "计划开始时间")
-    private LocalDateTime planStartTime;
+    private String planStartTime;
 
     @ApiModelProperty(value = "计划结束时间")
     private LocalDateTime planEndTime;

@@ -11,7 +11,7 @@
  Target Server Version : 50730
  File Encoding         : 65001
 
- Date: 11/09/2020 18:31:51
+ Date: 15/09/2020 17:18:17
 */
 
 SET NAMES utf8mb4;
@@ -68,20 +68,23 @@ CREATE TABLE `plan_info`  (
   `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户id',
   `plan_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '计划名字',
   `plan_type` tinyint(4) NOT NULL COMMENT '计划类型 1：一次  2.每日 3.工作日 4.非工作日',
-  `plan_start_time` datetime(0) NOT NULL COMMENT '计划开始时间',
-  `plan_end_time` datetime(0) NOT NULL COMMENT '计划结束时间',
+  `plan_start_time` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '计划开始时间',
+  `plan_end_time` datetime(0) NULL DEFAULT NULL COMMENT '计划结束时间',
   `plan_second` bigint(20) NOT NULL COMMENT '计划秒数',
+  `remarks` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   `create_by` bigint(20) NOT NULL,
   `create_time` datetime(0) NOT NULL,
   `modified_by` bigint(20) NOT NULL,
   `modified_time` datetime(0) NOT NULL,
   PRIMARY KEY (`plan_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of plan_info
 -- ----------------------------
-INSERT INTO `plan_info` VALUES (1, 1, 1, 'test', 1, '2020-09-10 17:37:42', '2020-09-24 17:37:44', 123, 1, '2020-09-10 17:37:56', 1, '2020-09-10 17:37:59');
+INSERT INTO `plan_info` VALUES (1, 1, 2, 'test', 3, '37:42', '2020-09-24 17:37:44', 123, '特啊啊啊啊啊', 1, '2020-09-10 17:37:56', 1, '2020-09-10 17:37:59');
+INSERT INTO `plan_info` VALUES (7, 0, 2, 'test', 1, '37:42', '2020-09-24 17:37:44', 123, '啊啊啊啊啊啊啊啊', 1, '2020-09-10 17:37:56', 1, '2020-09-10 17:37:59');
+INSERT INTO `plan_info` VALUES (8, NULL, 2, 'qqq', 1, '03:00', NULL, 3000, 'qqq', 0, '2020-09-15 17:16:58', 0, '2020-09-15 17:16:58');
 
 -- ----------------------------
 -- Table structure for plan_stat
@@ -98,12 +101,14 @@ CREATE TABLE `plan_stat`  (
   `modified_by` bigint(20) NOT NULL,
   `modified_time` datetime(0) NOT NULL,
   PRIMARY KEY (`plan_stat_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of plan_stat
 -- ----------------------------
-INSERT INTO `plan_stat` VALUES (1, 1, 0, 0, NULL, 1, '2020-09-10 17:38:21', 1, '2020-09-10 17:38:26');
+INSERT INTO `plan_stat` VALUES (1, 1, 1800, 4, NULL, 1, '2020-09-10 17:38:21', 1, '2020-09-10 17:38:26');
+INSERT INTO `plan_stat` VALUES (5, 7, 1, 0, '', 1, '2020-09-10 17:38:21', 1, '2020-09-10 17:38:26');
+INSERT INTO `plan_stat` VALUES (6, 8, 0, 0, NULL, 0, '2020-09-15 17:17:14', 0, '2020-09-15 17:17:14');
 
 -- ----------------------------
 -- Table structure for sys_params
@@ -186,9 +191,9 @@ CREATE TABLE `user_info`  (
 -- ----------------------------
 -- Records of user_info
 -- ----------------------------
-INSERT INTO `user_info` VALUES (1, 'admin', '123456', NULL, 'admin', 1, '2020-09-10 10:58:41', 1, '2020-09-10 10:58:45');
-INSERT INTO `user_info` VALUES (2, 'aaa', 'aaa', NULL, 'aaa', 0, '2020-09-11 17:46:59', 0, '2020-09-11 17:46:59');
-INSERT INTO `user_info` VALUES (3, 'bbb', 'bbb', NULL, 'bbb', 0, '2020-09-11 17:47:53', 0, '2020-09-11 17:47:53');
+INSERT INTO `user_info` VALUES (1, 'admin', '123456', ' ', 'admin', 1, '2020-09-10 10:58:41', 1, '2020-09-10 10:58:45');
+INSERT INTO `user_info` VALUES (2, 'aaa', 'aaa', ' ', 'aaa', 0, '2020-09-11 17:46:59', 0, '2020-09-11 17:46:59');
+INSERT INTO `user_info` VALUES (3, 'bbb', 'bbb', ' ', 'bbb', 0, '2020-09-11 17:47:53', 0, '2020-09-11 17:47:53');
 
 -- ----------------------------
 -- Table structure for user_stat
@@ -210,7 +215,7 @@ CREATE TABLE `user_stat`  (
 -- ----------------------------
 -- Records of user_stat
 -- ----------------------------
-INSERT INTO `user_stat` VALUES (1, 2, 0, 0, 0, 0, '2020-09-11 17:47:20', 0, '2020-09-11 17:47:20');
-INSERT INTO `user_stat` VALUES (2, 3, 0, 0, 0, 0, '2020-09-11 17:47:56', 0, '2020-09-11 17:47:56');
+INSERT INTO `user_stat` VALUES (1, 2, 12, 2, 3, 0, '2020-09-11 17:47:20', 0, '2020-09-11 17:47:20');
+INSERT INTO `user_stat` VALUES (2, 3, 222, 3432, 222, 0, '2020-09-11 17:47:56', 0, '2020-09-11 17:47:56');
 
 SET FOREIGN_KEY_CHECKS = 1;

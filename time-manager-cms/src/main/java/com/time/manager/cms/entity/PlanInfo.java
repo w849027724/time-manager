@@ -41,12 +41,15 @@ public class PlanInfo extends BaseEntity<PlanInfo> {
     private Integer planType;
 
     @ApiModelProperty(value = "计划开始时间")
-    private LocalDateTime planStartTime;
+    private String planStartTime;
 
     @ApiModelProperty(value = "计划结束时间")
     private LocalDateTime planEndTime;
 
-    @ApiModelProperty(value = "计划秒数")
+    @ApiModelProperty(value = "计划秒数 分钟")
     private Long planSecond;
+
+    @ApiModelProperty(value = "备注")
+    private String remarks;
 
 }
