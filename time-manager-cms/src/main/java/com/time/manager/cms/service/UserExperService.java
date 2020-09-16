@@ -14,4 +14,5 @@ import com.time.manage.common.mybatis.service.BaseService;
  */
 public interface UserExperService extends BaseService<UserExper> {
 
+    void addExper(Long userId, Long planSecond);
 }

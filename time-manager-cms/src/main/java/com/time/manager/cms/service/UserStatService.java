@@ -1,7 +1,7 @@
 package com.time.manager.cms.service;
 
-import com.time.manager.cms.entity.UserStat;
 import com.time.manage.common.mybatis.service.BaseService;
+import com.time.manager.cms.entity.UserStat;
 
 /**
  * <p>
@@ -14,4 +14,11 @@ import com.time.manage.common.mybatis.service.BaseService;
  */
 public interface UserStatService extends BaseService<UserStat> {
 
+    void addFabulous(Long userId);
+
+    void addJoins(Long userId);
+
+    void addFinishs(Long userId);
+
+    void addPlans(Long userId);
 }

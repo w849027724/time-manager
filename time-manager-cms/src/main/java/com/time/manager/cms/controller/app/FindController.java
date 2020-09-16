@@ -9,6 +9,7 @@ import com.time.manager.cms.entity.UserInfo;
 import com.time.manager.cms.service.PlanInfoService;
 import com.time.manager.cms.service.PlanStatService;
 import com.time.manager.cms.service.UserInfoService;
+import com.time.manager.cms.service.UserStatService;
 import com.time.manager.cms.vo.PlanInfoVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,6 +31,7 @@ public class FindController {
     private final PlanInfoService planInfoService;
     private final PlanStatService planStatService;
     private final UserInfoService userInfoService;
+    private final UserStatService userStatService;
 
 
     @GetMapping("/list")
@@ -63,6 +65,8 @@ public class FindController {
             PlanStat planStat = list.get(0);
             planStat.setPlanFabulous(planStat.getPlanFabulous() + 1);
             planStatService.updateById(planStat);
+
+            userStatService.addFabulous(planInfo.getUserId());
         }
         return R.ok();
     }
@@ -83,6 +87,8 @@ public class FindController {
 
             planStat.setPlanStatId(null).setPlanId(byId.getPlanId()).setPlanJoins(0).setPlanFabulous(0).setPlanJoinUser("");
             planStatService.save(planStat);
+
+            userStatService.addPlans(planInfo.getUserId());
         }
         return R.ok();
     }
