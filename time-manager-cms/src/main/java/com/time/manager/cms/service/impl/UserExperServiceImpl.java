@@ -30,16 +30,15 @@ public class UserExperServiceImpl extends BaseServiceImpl<UserExperMapper, UserE
     public void addExper(Long userId, Long planSecond) {
         UserExper userExper = this.getOne(Wrappers.<UserExper>query().lambda().eq(UserExper::getUserId, userId));
         userExper.setUserExper(userExper.getUserExper() + planSecond);
-        this.updateById(userExper);
-
         LabelInfo labelInfo = labelInfoService.getOne(Wrappers.<LabelInfo>query().lambda().eq(LabelInfo::getLabelCode, userExper.getLabelCode()));
         if (labelInfo.getLabelEndExper() <= userExper.getUserExper()) {
             // 更新标签
             LabelInfo one = labelInfoService.getOne(Wrappers.<LabelInfo>query()
                     .lambda()
-                    .gt(LabelInfo::getLabelStatExper, userExper.getUserExper())
-                    .lt(LabelInfo::getLabelStatExper, userExper.getUserExper()));
+                    .le(LabelInfo::getLabelStatExper, userExper.getUserExper())
+                    .ge(LabelInfo::getLabelEndExper, userExper.getUserExper()));
             userExper.setLabelCode(one.getLabelCode());
         }
+        this.updateById(userExper);
     }
 }

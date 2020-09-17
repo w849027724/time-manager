@@ -37,7 +37,9 @@ public class FindController {
     @GetMapping("/list")
     @ApiOperation("发现列表")
     public R<List<PlanInfoVO>> findList() {
-        List<PlanInfo> list = planInfoService.list();
+        List<PlanInfo> list = planInfoService.list(Wrappers.<PlanInfo>query()
+                .lambda().eq(PlanInfo::getPlanStatus, 4)
+                .orderByDesc(PlanInfo::getModifiedTime));
         List<PlanInfoVO> result = new ArrayList<>(list.size());
         list.forEach(e -> {
             PlanInfoVO planInfoVO = new PlanInfoVO();

@@ -77,11 +77,25 @@ public class PlanController {
             PlanInfo planInfo1 = list.get(0);
             planInfo1.setPlanStatus(4);
             planInfoService.updateById(planInfo1);
-            userExperService.addExper(planInfo1.getUserId(),planInfo1.getPlanSecond());
+            userExperService.addExper(planInfo1.getUserId(), planInfo1.getPlanSecond());
             userStatService.addFinishs(planInfo.getUserId());
         }
         return R.ok();
     }
 
+    @DeleteMapping("/del/{planId}")
+    @ApiOperation("开始计划")
+    public R delPlan(@PathVariable Long planId) {
+
+        List<PlanInfo> list = planInfoService.list(Wrappers.<PlanInfo>query().lambda().eq(PlanInfo::getPlanId, planId));
+        if (list.size() > 0) {
+            PlanInfo planInfo = list.get(0);
+            PlanStat one = planStatService.getOne(Wrappers.<PlanStat>query().lambda().eq(PlanStat::getPlanId, planInfo.getPlanId()));
+            planStatService.removeById(one.getPlanStatId());
+            planInfoService.removeById(planId);
+        }
+
+        return R.ok();
+    }
 
 }
