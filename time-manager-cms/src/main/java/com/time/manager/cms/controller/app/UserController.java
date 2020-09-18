@@ -5,6 +5,7 @@ import com.time.manage.common.core.utils.R;
 import com.time.manager.cms.entity.UserExper;
 import com.time.manager.cms.entity.UserInfo;
 import com.time.manager.cms.entity.UserStat;
+import com.time.manager.cms.service.PlanUserDayService;
 import com.time.manager.cms.service.UserExperService;
 import com.time.manager.cms.service.UserInfoService;
 import com.time.manager.cms.service.UserStatService;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @author wlj
@@ -28,6 +30,7 @@ public class UserController {
     private final UserInfoService userInfoService;
     private final UserStatService userStatService;
     private final UserExperService userExperService;
+    private final PlanUserDayService planUserDayService;
 
     @GetMapping("/login")
     @ApiOperation("用户登录")
@@ -40,6 +43,7 @@ public class UserController {
         if (list.size() > 0) {
             UserInfo userInfo1 = list.get(0);
             if (userInfo1.getUserPassword().equals(userPassword)) {
+                CompletableFuture.runAsync(() -> planUserDayService.initDayPlanUserList(userInfo1.getUserId()));
                 return R.ok(userInfo1);
             }
         }
@@ -61,7 +65,7 @@ public class UserController {
 
 
     @PostMapping("/register")
-    @ApiOperation("用户登录")
+    @ApiOperation("用户注册")
     public R register(@RequestBody UserInfo userInfo) {
         // 注册
         userInfo.setUserAvatar("");

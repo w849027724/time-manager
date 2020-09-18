@@ -37,7 +37,7 @@ public class PlanInfoVO implements Serializable {
     private String planStartTime;
 
     @ApiModelProperty(value = "计划结束时间")
-    private LocalDateTime planEndTime;
+    private String planEndTime;
 
     @ApiModelProperty(value = "计划秒数")
     private Long planSecond;
@@ -59,5 +59,15 @@ public class PlanInfoVO implements Serializable {
 
     @ApiModelProperty(value = "用户昵称")
     private String userNickname;
+
+    @ApiModelProperty(value = "计划状态 1：未开始  2：进行中 3：未完成 4：已完成")
+    private Integer planDayStatus;
+
+    @ApiModelProperty(value = "开始时间  hh:mm:ss")
+    private String startTime;
+
+    @ApiModelProperty(value = "结束时间 hh:mm:ss")
+    private String endTime;
+
 
 }
