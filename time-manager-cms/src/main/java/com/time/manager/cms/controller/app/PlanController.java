@@ -1,5 +1,6 @@
 package com.time.manager.cms.controller.app;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.time.manage.common.core.utils.R;
 import com.time.manager.cms.entity.PlanInfo;
@@ -76,26 +77,46 @@ public class PlanController {
 
     @PutMapping("/start/plan")
     @ApiOperation("开始计划")
-    public R startPlan(@RequestBody PlanInfo planInfo) {
-        List<PlanInfo> list = planInfoService.list(Wrappers.<PlanInfo>query().lambda().eq(PlanInfo::getPlanId, planInfo.getPlanId()));
+    public R startPlan(@RequestBody PlanUserDay planUserDay) {
+        List<PlanUserDay> list = planUserDayService.list(Wrappers.<PlanUserDay>query()
+                .lambda().eq(PlanUserDay::getPlanUserDayId, planUserDay.getPlanUserDayId()));
         if (list.size() > 0) {
-            PlanInfo planInfo2 = list.get(0);
-            planInfo2.setPlanStatus(2);
-            planInfoService.updateById(planInfo2);
+            PlanUserDay planInfo2 = list.get(0);
+            planInfo2.setPlanDayStatus(2);
+            planUserDayService.updateById(planInfo2);
         }
         return R.ok();
     }
 
     @PutMapping("/end/plan")
-    @ApiOperation("开始计划")
-    public R endPlan(@RequestBody PlanInfo planInfo) {
-        List<PlanInfo> list = planInfoService.list(Wrappers.<PlanInfo>query().lambda().eq(PlanInfo::getPlanId, planInfo.getPlanId()));
+    @ApiOperation("结束计划")
+    public R endPlan(@RequestBody PlanInfoVO planInfoVO) {
+        List<PlanUserDay> list = planUserDayService.list(Wrappers.<PlanUserDay>query()
+                .lambda().eq(PlanUserDay::getPlanUserDayId, planInfoVO.getPlanUserDayId()));
         if (list.size() > 0) {
-            PlanInfo planInfo1 = list.get(0);
-            planInfo1.setPlanStatus(4);
-            planInfoService.updateById(planInfo1);
-            userExperService.addExper(planInfo1.getUserId(), planInfo1.getPlanSecond());
-            userStatService.addFinishs(planInfo.getUserId());
+            PlanUserDay planInfo1 = list.get(0);
+            PlanInfo byId = planInfoService.getById(planInfoVO.getPlanId());
+            planInfo1.setPlanDayStatus(4);
+            if (byId.getPlanType() == 2) {
+                planInfo1.setEndTime(ObjectUtil.defaultIfNull(planInfoVO.getEndTime(), ""));
+            }
+            planUserDayService.updateById(planInfo1);
+            // 一次的计划结束
+            if (byId.getPlanFrequencyType() == 1) {
+                byId.setPlanStatus(1);
+                planInfoService.updateById(byId);
+            }
+            // 经验计算
+            Long exper = 100L;
+            if (byId.getPlanType() == 1) {
+                exper = byId.getPlanSecond();
+            }
+            if (byId.getPlanType() == 2) {
+                exper = 100L;
+            }
+
+            userExperService.addExper(planInfo1.getUserId(), exper);
+            userStatService.addFinishs(byId.getUserId());
         }
         return R.ok();
     }
