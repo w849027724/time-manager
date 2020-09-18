@@ -102,7 +102,7 @@ public class PlanController {
             }
             planUserDayService.updateById(planInfo1);
             // 一次的计划结束
-            if (byId.getPlanFrequencyType() == 1) {
+            if (byId.getPlanFrequencyType() == 0) {
                 byId.setPlanStatus(1);
                 planInfoService.updateById(byId);
             }
