@@ -17,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * @author wlj
@@ -43,7 +42,7 @@ public class UserController {
         if (list.size() > 0) {
             UserInfo userInfo1 = list.get(0);
             if (userInfo1.getUserPassword().equals(userPassword)) {
-                CompletableFuture.runAsync(() -> planUserDayService.initDayPlanUserList(userInfo1.getUserId()));
+                planUserDayService.initDayPlanUserList(userInfo1.getUserId());
                 return R.ok(userInfo1);
             }
         }
