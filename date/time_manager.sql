@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : mysql-local
+ Source Server         : 124.70.40.151
  Source Server Type    : MySQL
  Source Server Version : 50730
- Source Host           : 127.0.0.1:3306
+ Source Host           : 124.70.40.151:3306
  Source Schema         : time_manager
 
  Target Server Type    : MySQL
  Target Server Version : 50730
  File Encoding         : 65001
 
- Date: 16/09/2020 18:33:57
+ Date: 21/09/2020 11:38:42
 */
 
 SET NAMES utf8mb4;
@@ -38,7 +38,7 @@ CREATE TABLE `label_info`  (
 -- Records of label_info
 -- ----------------------------
 INSERT INTO `label_info` VALUES (1, '1', 'LV1.时间菜鸟', 0, 100, 1, '2020-09-16 16:49:14', 1, '2020-09-16 16:49:18');
-INSERT INTO `label_info` VALUES (2, '2', 'LV2.时间新手', 100, 1000, 1, '2020-09-16 17:07:30', 1, '2020-09-16 17:07:33');
+INSERT INTO `label_info` VALUES (2, '2', 'LV2.时间新手', 100, 10000000, 1, '2020-09-16 17:07:30', 1, '2020-09-16 17:07:33');
 
 -- ----------------------------
 -- Table structure for message_info
@@ -66,28 +66,30 @@ CREATE TABLE `message_info`  (
 DROP TABLE IF EXISTS `plan_info`;
 CREATE TABLE `plan_info`  (
   `plan_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '计划id',
-  `plan_status` tinyint(4) NULL DEFAULT NULL COMMENT '计划状态 1：未开始  2：进行中 3：未完成 4：已完成',
-  `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户id',
+  `plan_status` tinyint(4) NULL DEFAULT NULL COMMENT '计划状态  0：未完成 1：已完成',
+  `user_id` bigint(20) NOT NULL COMMENT '用户id',
   `plan_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '计划名字',
-  `plan_type` tinyint(4) NOT NULL COMMENT '计划类型 1：一次  2.每日 3.工作日 4.非工作日',
-  `plan_start_time` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '计划开始时间',
-  `plan_end_time` datetime(0) NULL DEFAULT NULL COMMENT '计划结束时间',
-  `plan_second` bigint(20) NOT NULL COMMENT '计划秒数',
+  `plan_type` tinyint(4) NOT NULL COMMENT '计划类型 0：打卡  1：计时 2：限时',
+  `plan_frequency_type` tinyint(4) NOT NULL COMMENT '计划频次类型  0：一次  1.每日 2.工作日 3.非工作日 4.自定义',
+  `plan_frequency_days` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '计划频次日期 星期1-星期7',
+  `plan_start_time` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '计划开始时间',
+  `plan_end_time` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '计划结束时间',
+  `plan_second` bigint(20) NULL DEFAULT NULL COMMENT '计划秒数',
+  `plan_times` bigint(20) NULL DEFAULT NULL COMMENT '计划完成次数',
   `remarks` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   `create_by` bigint(20) NOT NULL,
   `create_time` datetime(0) NOT NULL,
   `modified_by` bigint(20) NOT NULL,
   `modified_time` datetime(0) NOT NULL,
   PRIMARY KEY (`plan_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of plan_info
 -- ----------------------------
-INSERT INTO `plan_info` VALUES (1, 4, 2, 'test', 3, '20:42', '2020-09-24 17:37:44', 10, '特啊啊啊啊啊', 1, '2020-09-10 17:37:56', 1, '2020-09-10 17:37:59');
-INSERT INTO `plan_info` VALUES (7, 0, 2, 'test', 1, '20:42', '2020-09-24 17:37:44', 123, '啊啊啊啊啊啊啊啊', 1, '2020-09-10 17:37:56', 1, '2020-09-10 17:37:59');
-INSERT INTO `plan_info` VALUES (8, 0, 2, 'qqq', 1, '03:00', NULL, 3000, 'qqq', 0, '2020-09-15 17:16:58', 0, '2020-09-15 17:16:58');
-INSERT INTO `plan_info` VALUES (9, 0, 2, 'test', 3, '20:42', '2020-09-24 17:37:44', 10, '特啊啊啊啊啊', 1, '2020-09-10 17:37:56', 1, '2020-09-10 17:37:59');
+INSERT INTO `plan_info` VALUES (4, 1, 2, '打卡', 0, 0, '', '00:00', '00:00', 0, 0, '', 0, '2020-09-18 17:37:35', 0, '2020-09-18 17:37:35');
+INSERT INTO `plan_info` VALUES (5, 0, 2, '打卡-每日', 0, 1, '', '00:00', '00:00', 0, 0, '', 0, '2020-09-18 17:38:21', 0, '2020-09-18 17:38:21');
+INSERT INTO `plan_info` VALUES (6, 0, 2, '打卡-工作日', 0, 2, '', '00:00', '00:00', 0, 0, '', 0, '2020-09-18 17:39:31', 0, '2020-09-18 17:39:31');
 
 -- ----------------------------
 -- Table structure for plan_stat
@@ -104,15 +106,39 @@ CREATE TABLE `plan_stat`  (
   `modified_by` bigint(20) NOT NULL,
   `modified_time` datetime(0) NOT NULL,
   PRIMARY KEY (`plan_stat_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of plan_stat
 -- ----------------------------
-INSERT INTO `plan_stat` VALUES (1, 1, 1807, 5, NULL, 1, '2020-09-10 17:38:21', 1, '2020-09-10 17:38:26');
-INSERT INTO `plan_stat` VALUES (5, 7, 2, 0, '', 1, '2020-09-10 17:38:21', 1, '2020-09-10 17:38:26');
-INSERT INTO `plan_stat` VALUES (6, 8, 0, 0, NULL, 0, '2020-09-15 17:17:14', 0, '2020-09-15 17:17:14');
-INSERT INTO `plan_stat` VALUES (7, 9, 0, 0, '', 1, '2020-09-10 17:38:21', 1, '2020-09-10 17:38:26');
+INSERT INTO `plan_stat` VALUES (19, 4, 0, 0, NULL, 0, '2020-09-18 17:37:35', 0, '2020-09-18 17:37:35');
+INSERT INTO `plan_stat` VALUES (20, 5, 0, 0, NULL, 0, '2020-09-18 17:38:21', 0, '2020-09-18 17:38:21');
+INSERT INTO `plan_stat` VALUES (21, 6, 0, 0, NULL, 0, '2020-09-18 17:39:31', 0, '2020-09-18 17:39:31');
+
+-- ----------------------------
+-- Table structure for plan_user_day
+-- ----------------------------
+DROP TABLE IF EXISTS `plan_user_day`;
+CREATE TABLE `plan_user_day`  (
+  `plan_user_day_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户每日计划',
+  `plan_id` bigint(20) NOT NULL COMMENT '计划id',
+  `user_id` bigint(20) NOT NULL COMMENT '用户id',
+  `plan_day` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '日期  yyyy-MM-dd',
+  `plan_day_status` tinyint(4) NOT NULL COMMENT '计划状态 1：未开始  2：进行中 3：未完成 4：已完成',
+  `start_time` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '开始时间  hh:mm:ss',
+  `end_time` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '结束时间 hh:mm:ss',
+  `create_by` bigint(20) NOT NULL,
+  `create_time` datetime(0) NOT NULL,
+  `modified_by` bigint(20) NOT NULL,
+  `modified_time` datetime(0) NOT NULL,
+  PRIMARY KEY (`plan_user_day_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户每日的计划列表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of plan_user_day
+-- ----------------------------
+INSERT INTO `plan_user_day` VALUES (4, 4, 2, '2020-09-18', 4, NULL, NULL, 0, '2020-09-18 17:37:50', 0, '2020-09-18 17:37:50');
+INSERT INTO `plan_user_day` VALUES (5, 5, 2, '2020-09-18', 4, NULL, NULL, 0, '2020-09-18 17:38:29', 0, '2020-09-18 17:38:29');
 
 -- ----------------------------
 -- Table structure for sys_params
@@ -167,13 +193,16 @@ CREATE TABLE `user_exper`  (
   `modified_by` bigint(20) NOT NULL,
   `modified_time` datetime(0) NOT NULL,
   PRIMARY KEY (`user_exper_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '经验和计划的秒数挂钩' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '经验和计划的秒数挂钩' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user_exper
 -- ----------------------------
-INSERT INTO `user_exper` VALUES (1, 2, '1', 20, 0, '2020-09-11 17:47:13', 0, '2020-09-11 17:47:13');
+INSERT INTO `user_exper` VALUES (1, 2, '2', 6919, 0, '2020-09-11 17:47:13', 0, '2020-09-11 17:47:13');
 INSERT INTO `user_exper` VALUES (2, 3, '1', 0, 0, '2020-09-11 17:47:56', 0, '2020-09-11 17:47:56');
+INSERT INTO `user_exper` VALUES (3, 4, '1', 5400, 0, '2020-09-17 12:43:10', 0, '2020-09-17 12:43:10');
+INSERT INTO `user_exper` VALUES (4, 5, '1', 0, 0, '2020-09-17 12:49:04', 0, '2020-09-17 12:49:04');
+INSERT INTO `user_exper` VALUES (6, 7, '1', 0, 0, '2020-09-17 16:13:55', 0, '2020-09-17 16:13:55');
 
 -- ----------------------------
 -- Table structure for user_info
@@ -190,14 +219,16 @@ CREATE TABLE `user_info`  (
   `modified_by` bigint(20) NOT NULL,
   `modified_time` datetime(0) NOT NULL,
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user_info
 -- ----------------------------
-INSERT INTO `user_info` VALUES (1, 'admin', '123456', ' ', 'admin', 1, '2020-09-10 10:58:41', 1, '2020-09-10 10:58:45');
-INSERT INTO `user_info` VALUES (2, 'aaa', 'aaa', ' ', 'aaa', 0, '2020-09-11 17:46:59', 0, '2020-09-11 17:46:59');
+INSERT INTO `user_info` VALUES (2, 'aaa', 'aaa', ' ', '摩登猪头', 0, '2020-09-11 17:46:59', 0, '2020-09-11 17:46:59');
 INSERT INTO `user_info` VALUES (3, 'bbb', 'bbb', ' ', 'bbb', 0, '2020-09-11 17:47:53', 0, '2020-09-11 17:47:53');
+INSERT INTO `user_info` VALUES (4, '123456', '123456', '', '123456', 0, '2020-09-17 12:43:10', 0, '2020-09-17 12:43:10');
+INSERT INTO `user_info` VALUES (5, 'zl', '123456', '', '123456', 0, '2020-09-17 12:49:04', 0, '2020-09-17 12:49:04');
+INSERT INTO `user_info` VALUES (7, '1234', '12345678', '', '12', 0, '2020-09-17 16:13:54', 0, '2020-09-17 16:13:54');
 
 -- ----------------------------
 -- Table structure for user_stat
@@ -214,12 +245,15 @@ CREATE TABLE `user_stat`  (
   `modified_by` bigint(20) NOT NULL,
   `modified_time` datetime(0) NOT NULL,
   PRIMARY KEY (`user_stat_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user_stat
 -- ----------------------------
-INSERT INTO `user_stat` VALUES (1, 2, 13, 3, 8, 0, '2020-09-11 17:47:20', 0, '2020-09-11 17:47:20');
+INSERT INTO `user_stat` VALUES (1, 2, 25, 13, 27, 0, '2020-09-11 17:47:20', 0, '2020-09-11 17:47:20');
 INSERT INTO `user_stat` VALUES (2, 3, 222, 3432, 222, 0, '2020-09-11 17:47:56', 0, '2020-09-11 17:47:56');
+INSERT INTO `user_stat` VALUES (3, 4, 1, 0, 0, 0, '2020-09-17 12:43:10', 0, '2020-09-17 12:43:10');
+INSERT INTO `user_stat` VALUES (4, 5, 1, 0, 0, 0, '2020-09-17 12:49:04', 0, '2020-09-17 12:49:04');
+INSERT INTO `user_stat` VALUES (6, 7, 0, 0, 0, 0, '2020-09-17 16:13:55', 0, '2020-09-17 16:13:55');
 
 SET FOREIGN_KEY_CHECKS = 1;
