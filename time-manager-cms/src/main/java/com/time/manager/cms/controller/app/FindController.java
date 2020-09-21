@@ -5,11 +5,9 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.time.manage.common.core.utils.R;
 import com.time.manager.cms.entity.PlanInfo;
 import com.time.manager.cms.entity.PlanStat;
+import com.time.manager.cms.entity.PlanUserDay;
 import com.time.manager.cms.entity.UserInfo;
-import com.time.manager.cms.service.PlanInfoService;
-import com.time.manager.cms.service.PlanStatService;
-import com.time.manager.cms.service.UserInfoService;
-import com.time.manager.cms.service.UserStatService;
+import com.time.manager.cms.service.*;
 import com.time.manager.cms.vo.PlanInfoVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,18 +30,21 @@ public class FindController {
     private final PlanStatService planStatService;
     private final UserInfoService userInfoService;
     private final UserStatService userStatService;
+    private final PlanUserDayService planUserDayService;
 
 
     @GetMapping("/list")
     @ApiOperation("发现列表")
     public R<List<PlanInfoVO>> findList() {
-        List<PlanInfo> list = planInfoService.list(Wrappers.<PlanInfo>query()
-                .lambda().eq(PlanInfo::getPlanStatus, 4)
-                .orderByDesc(PlanInfo::getModifiedTime));
+        List<PlanUserDay> list = planUserDayService.list(Wrappers.<PlanUserDay>query()
+                .lambda().eq(PlanUserDay::getPlanDayStatus, 4)
+                .orderByDesc(PlanUserDay::getModifiedTime));
         List<PlanInfoVO> result = new ArrayList<>(list.size());
         list.forEach(e -> {
             PlanInfoVO planInfoVO = new PlanInfoVO();
+            PlanInfo byId = planInfoService.getById(e.getPlanId());
             BeanUtils.copyProperties(e, planInfoVO);
+            BeanUtils.copyProperties(byId, planInfoVO);
             Long planId = e.getPlanId();
             PlanStat one = planStatService.getOne(Wrappers.<PlanStat>query().lambda().eq(PlanStat::getPlanId, planId));
             if (ObjectUtil.isNotNull(one)) {

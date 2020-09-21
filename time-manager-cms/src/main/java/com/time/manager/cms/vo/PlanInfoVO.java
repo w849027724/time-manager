@@ -53,11 +53,15 @@ public class PlanInfoVO implements Serializable {
     @ApiModelProperty(value = "备注")
     private String remarks;
 
+    // ==================================================
+
     @ApiModelProperty(value = "用户头像")
     private String userAvatar;
 
     @ApiModelProperty(value = "用户昵称")
     private String userNickname;
+
+    // ==================================================
 
     @ApiModelProperty(value = "用户每日计划")
     private Long planUserDayId;
@@ -70,6 +74,18 @@ public class PlanInfoVO implements Serializable {
 
     @ApiModelProperty(value = "结束时间 hh:mm:ss")
     private String endTime;
+
+    // ==================================================
+
+    @ApiModelProperty(value = "计划点赞")
+    private Integer planFabulous;
+
+    @ApiModelProperty(value = "计划参与数")
+    private Integer planJoins;
+
+    @ApiModelProperty(value = "计划参与用户（json格式   user_id集合 英文逗号隔开）")
+    private String planJoinUser;
+
 
 
 }

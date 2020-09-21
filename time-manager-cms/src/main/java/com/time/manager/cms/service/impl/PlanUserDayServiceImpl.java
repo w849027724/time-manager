@@ -94,22 +94,8 @@ public class PlanUserDayServiceImpl extends BaseServiceImpl<PlanUserDayMapper, P
                                 }
                             }
                         case WORKING_DAY:
-                            if (HolidayUtil.request()) {
-                                planUserDay.setPlanId(planId)
-                                        .setUserId(userId)
-                                        .setPlanDay(format)
-                                        .setPlanDayStatus(0);
-                                this.save(planUserDay);
-                            }
                             break;
                         case NON_WORKING_DAY:
-                            if (HolidayUtil.request()) {
-                                planUserDay.setPlanId(planId)
-                                        .setUserId(userId)
-                                        .setPlanDay(format)
-                                        .setPlanDayStatus(0);
-                                this.save(planUserDay);
-                            }
                             break;
                         default:
                     }
