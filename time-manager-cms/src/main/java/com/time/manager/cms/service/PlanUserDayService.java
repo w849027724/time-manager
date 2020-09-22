@@ -16,5 +16,11 @@ import com.time.manager.cms.entity.PlanUserDay;
 public interface PlanUserDayService extends BaseService<PlanUserDay> {
 
 
+    /**
+     * 初始化 每日计划
+     *
+     * @param userId
+     * @return
+     */
     R initDayPlanUserList(Long userId);
 }

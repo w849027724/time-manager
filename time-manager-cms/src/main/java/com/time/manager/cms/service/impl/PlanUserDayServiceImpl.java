@@ -1,8 +1,8 @@
 package com.time.manager.cms.service.impl;
 
+import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.time.manage.common.core.utils.HolidayUtil;
 import com.time.manage.common.core.utils.R;
 import com.time.manage.common.mybatis.service.BaseServiceImpl;
 import com.time.manager.cms.entity.PlanInfo;
@@ -58,21 +58,13 @@ public class PlanUserDayServiceImpl extends BaseServiceImpl<PlanUserDayMapper, P
             list.forEach(e -> {
                 Long planId = e.getPlanId();
                 if (!collect.containsKey(planId)) {
-                    PlanUserDay planUserDay = new PlanUserDay();
+
                     switch (Objects.requireNonNull(PlanFrequencyTypeEnum.getEnumByType(e.getPlanFrequencyType()))) {
                         case ONCE:
-                            planUserDay.setPlanId(planId)
-                                    .setUserId(userId)
-                                    .setPlanDay(format)
-                                    .setPlanDayStatus(0);
-                            this.save(planUserDay);
+                            createPlayUserDay(userId, format, e);
                             break;
                         case DAILY:
-                            planUserDay.setPlanId(planId)
-                                    .setUserId(userId)
-                                    .setPlanDay(format)
-                                    .setPlanDayStatus(0);
-                            this.save(planUserDay);
+                            createPlayUserDay(userId, format, e);
                             break;
                         case CUSTOMIZE:
                             // 获取当天星期
@@ -85,11 +77,7 @@ public class PlanUserDayServiceImpl extends BaseServiceImpl<PlanUserDayMapper, P
                                 String[] split = planFrequencyDays.split(",");
                                 for (String s : split) {
                                     if (ObjectUtil.isNotEmpty(s) && s.equalsIgnoreCase(weekDay)) {
-                                        planUserDay.setPlanId(planId)
-                                                .setUserId(userId)
-                                                .setPlanDay(format)
-                                                .setPlanDayStatus(0);
-                                        this.save(planUserDay);
+                                        createPlayUserDay(userId, format, e);
                                     }
                                 }
                             }
@@ -103,5 +91,48 @@ public class PlanUserDayServiceImpl extends BaseServiceImpl<PlanUserDayMapper, P
             });
         }
         return R.ok();
+    }
+
+    /**
+     * 构建每日用户计划   计时打卡复制一条 限时计时时间
+     *
+     * @param userId
+     * @param format
+     * @param planInfo
+     */
+    private void createPlayUserDay(Long userId, String format, PlanInfo planInfo) {
+        PlanUserDay planUserDay = new PlanUserDay();
+        switch (planInfo.getPlanType()) {
+            case 0:
+                planUserDay.setPlanId(planInfo.getPlanId())
+                        .setUserId(userId)
+                        .setPlanDay(format)
+                        .setPlanDayStatus(0);
+                this.save(planUserDay);
+                break;
+            case 1:
+                planUserDay.setPlanId(planInfo.getPlanId())
+                        .setUserId(userId)
+                        .setPlanDay(format)
+                        .setPlanDayStatus(0);
+                this.save(planUserDay);
+                break;
+            case 2:
+                //
+                Long finishDays = LocalDateTimeUtil.between(planInfo.getPlanStartTime(), LocalDateTime.now()).toDays();
+                Long lastDays = LocalDateTimeUtil.between(LocalDateTime.now(), planInfo.getPlanEndTime()).toDays();
+                planUserDay.setPlanId(planInfo.getPlanId())
+                        .setUserId(userId)
+                        .setPlanDay(format)
+                        .setPlanDayStatus(0)
+                        .setFinishDay(finishDays.intValue())
+                        .setLastDay(lastDays.intValue());
+                if (finishDays > 0) {
+                    planUserDay.setPlanDayStatus(1);
+                }
+                this.save(planUserDay);
+                break;
+            default:
+        }
     }
 }

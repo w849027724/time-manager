@@ -1,6 +1,5 @@
 package com.time.manager.cms.controller.app;
 
-import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.time.manage.common.core.utils.R;
 import com.time.manager.cms.entity.PlanInfo;
@@ -8,6 +7,7 @@ import com.time.manager.cms.entity.PlanStat;
 import com.time.manager.cms.entity.PlanUserDay;
 import com.time.manager.cms.service.*;
 import com.time.manager.cms.vo.PlanInfoVO;
+import com.time.manager.cms.vo.PlanViewVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -20,6 +20,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author wlj
@@ -41,7 +43,7 @@ public class PlanController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "userId", required = true, dataType = "Long", paramType = "query")
     })
-    public R<List<PlanInfoVO>> getPlanList(
+    public R<PlanViewVO> getPlanList(
             @RequestParam("userId") Long userId
     ) {
         // 获取今天 yyyy-MM-dd 打卡
@@ -56,7 +58,24 @@ public class PlanController {
             BeanUtils.copyProperties(byId, planInfoVO);
             result.add(planInfoVO);
         });
-        return R.ok(result);
+        PlanViewVO planViewVO = new PlanViewVO();
+        Map<Integer, List<PlanInfoVO>> collect = result.stream().collect(Collectors.groupingBy(PlanInfoVO::getPlanType));
+
+        if (collect.containsKey(0)) {
+            List<PlanInfoVO> planInfoVOS = collect.get(0);
+            planViewVO.setCheckInList(planInfoVOS);
+        }
+        if (collect.containsKey(1)) {
+            List<PlanInfoVO> planInfoVOS = collect.get(1);
+            planViewVO.setTimingList(planInfoVOS);
+        }
+        if (collect.containsKey(2)) {
+            List<PlanInfoVO> planInfoVOS = collect.get(2);
+            planViewVO.setLongPlanInfo(planInfoVOS.get(0));
+        }
+
+
+        return R.ok(planViewVO);
     }
 
 
@@ -94,13 +113,13 @@ public class PlanController {
         List<PlanUserDay> list = planUserDayService.list(Wrappers.<PlanUserDay>query()
                 .lambda().eq(PlanUserDay::getPlanUserDayId, planInfoVO.getPlanUserDayId()));
         if (list.size() > 0) {
-            PlanUserDay planInfo1 = list.get(0);
+            PlanUserDay planUserDay = list.get(0);
             PlanInfo byId = planInfoService.getById(planInfoVO.getPlanId());
-            planInfo1.setPlanDayStatus(4);
+            planUserDay.setPlanDayStatus(4);
             if (byId.getPlanType() == 2) {
-                planInfo1.setEndTime(ObjectUtil.defaultIfNull(planInfoVO.getEndTime(), ""));
+                planUserDay.setEndTime(LocalDateTime.now());
             }
-            planUserDayService.updateById(planInfo1);
+            planUserDayService.updateById(planUserDay);
             // 一次的计划结束
             if (byId.getPlanFrequencyType() == 0) {
                 byId.setPlanStatus(1);
@@ -115,7 +134,7 @@ public class PlanController {
                 exper = 100L;
             }
 
-            userExperService.addExper(planInfo1.getUserId(), exper);
+            userExperService.addExper(planUserDay.getUserId(), exper);
             userStatService.addFinishs(byId.getUserId());
         }
         return R.ok();

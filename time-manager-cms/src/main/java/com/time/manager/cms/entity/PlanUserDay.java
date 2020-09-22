@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.time.LocalDateTime;
+
 /**
  * <p>
  * 用户每日的计划列表
@@ -16,7 +18,7 @@ import lombok.experimental.Accessors;
  *
  * @author wlj
  * @Title: PlanUserDayService
- * @date 2020-09-18
+ * @date 2020-09-22
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -43,10 +45,15 @@ public class PlanUserDay extends BaseEntity<PlanUserDay> {
     private Integer planDayStatus;
 
     @ApiModelProperty(value = "开始时间  hh:mm:ss")
-    private String startTime;
+    private LocalDateTime startTime;
 
     @ApiModelProperty(value = "结束时间 hh:mm:ss")
-    private String endTime;
+    private LocalDateTime endTime;
 
+    @ApiModelProperty(value = "完成时间")
+    private Integer finishDay;
+
+    @ApiModelProperty(value = "剩余时间")
+    private Integer lastDay;
 
 }
