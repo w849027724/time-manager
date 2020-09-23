@@ -1,5 +1,6 @@
 package com.time.manager.cms.controller.app;
 
+import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.time.manage.common.core.utils.R;
@@ -74,9 +75,48 @@ public class PlanController {
             List<PlanInfoVO> planInfoVOS = collect.get(2);
             planViewVO.setLongPlanInfo(planInfoVOS.get(0));
         }
-
-
         return R.ok(planViewVO);
+    }
+
+
+    @GetMapping("/long/list")
+    @ApiOperation("长计划列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "userId", required = true, dataType = "Long", paramType = "query")
+    })
+    public R<List<PlanInfoVO>> getLongPlanList(
+            @RequestParam("userId") Long userId
+    ) {
+        List<PlanInfo> list = planInfoService.list(Wrappers.<PlanInfo>query().lambda()
+                .eq(PlanInfo::getUserId, userId)
+                .eq(PlanInfo::getPlanType, 2)
+                .orderByDesc(PlanInfo::getPlanTop)
+                .orderByDesc(PlanInfo::getPlanStartTime));
+        List<PlanInfoVO> result = new ArrayList<>(list.size());
+        list.forEach(e -> {
+            PlanInfoVO planInfoVO = new PlanInfoVO();
+            BeanUtils.copyProperties(e, planInfoVO);
+            // 获取今天 yyyy-MM-dd
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String format = LocalDateTime.now().format(df);
+
+            PlanUserDay one = planUserDayService.getOne(Wrappers.<PlanUserDay>query().lambda()
+                    .eq(PlanUserDay::getPlanDay, format).eq(PlanUserDay::getPlanId, e.getPlanId()));
+            if (ObjectUtil.isNotEmpty(one)) {
+                BeanUtils.copyProperties(one, planInfoVO);
+            } else {
+                Long totalDays = LocalDateTimeUtil.between(e.getPlanStartTime(), e.getPlanEndTime()).toDays();
+                planInfoVO.setPlanDayStatus(4).setFinishDay(0).setLastDay(0);
+                if (e.getPlanType() == 0) {
+                    planInfoVO.setLastDay(totalDays.intValue());
+                }
+                if (e.getPlanType() == 1) {
+                    planInfoVO.setFinishDay(totalDays.intValue());
+                }
+            }
+            result.add(planInfoVO);
+        });
+        return R.ok(result);
     }
 
 
