@@ -1,5 +1,6 @@
 package com.time.manager.cms.controller.app;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.time.manage.common.core.utils.R;
 import com.time.manager.cms.entity.PlanInfo;
@@ -107,14 +108,23 @@ public class PlanController {
         return R.ok();
     }
 
+    @PutMapping("/update/plan")
+    @ApiOperation("结束计划")
+    public R updatePlan(@RequestBody PlanInfoVO planInfoVO) {
+        PlanUserDay planUserDay = planUserDayService.getById(planInfoVO.getPlanUserDayId());
+        if (ObjectUtil.isNotEmpty(planUserDay)) {
+            planUserDay.setPlanDayStatus(2);
+            planUserDayService.updateById(planUserDay);
+        }
+        return R.ok();
+    }
+
     @PutMapping("/end/plan")
     @ApiOperation("结束计划")
     public R endPlan(@RequestBody PlanInfoVO planInfoVO) {
-        List<PlanUserDay> list = planUserDayService.list(Wrappers.<PlanUserDay>query()
-                .lambda().eq(PlanUserDay::getPlanUserDayId, planInfoVO.getPlanUserDayId()));
-        if (list.size() > 0) {
-            PlanUserDay planUserDay = list.get(0);
-            PlanInfo byId = planInfoService.getById(planInfoVO.getPlanId());
+        PlanUserDay planUserDay = planUserDayService.getById(planInfoVO.getPlanUserDayId());
+        if (ObjectUtil.isNotEmpty(planUserDay)) {
+            PlanInfo byId = planInfoService.getById(planUserDay.getPlanId());
             planUserDay.setPlanDayStatus(4);
             if (byId.getPlanType() == 2) {
                 planUserDay.setEndTime(LocalDateTime.now());
