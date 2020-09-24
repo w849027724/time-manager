@@ -7,6 +7,10 @@ import com.time.manage.common.core.utils.R;
 import com.time.manager.cms.entity.PlanInfo;
 import com.time.manager.cms.entity.PlanStat;
 import com.time.manager.cms.entity.PlanUserDay;
+import com.time.manager.cms.enums.PlanDayStatusEnum;
+import com.time.manager.cms.enums.PlanStatusEnum;
+import com.time.manager.cms.enums.PlanTopEnum;
+import com.time.manager.cms.enums.PlanTypeEnum;
 import com.time.manager.cms.service.*;
 import com.time.manager.cms.vo.PlanInfoVO;
 import com.time.manager.cms.vo.PlanViewVO;
@@ -136,6 +140,24 @@ public class PlanController {
         return R.ok();
     }
 
+
+    @GetMapping("/long/top")
+    @ApiOperation("发布计划")
+    public R longTopTop(@RequestParam Long planId, @RequestParam Long userId) {
+        List<PlanInfo> list = planInfoService.list(Wrappers.<PlanInfo>query().lambda()
+                .eq(PlanInfo::getUserId, userId)
+                .eq(PlanInfo::getPlanStatus, PlanStatusEnum.NOT_START.getType())
+                .eq(PlanInfo::getPlanType, PlanTypeEnum.LONG_PLAN.getType()));
+        list.forEach(e -> {
+            e.setPlanTop(PlanTopEnum.NO.getType());
+            if (e.getPlanId().equals(planId)) {
+                e.setPlanTop(PlanTopEnum.YES.getType());
+            }
+        });
+        planInfoService.updateBatchById(list);
+        return R.ok();
+    }
+
     @PutMapping("/start/plan")
     @ApiOperation("开始计划")
     public R startPlan(@RequestBody PlanUserDay planUserDay) {
@@ -143,18 +165,18 @@ public class PlanController {
                 .lambda().eq(PlanUserDay::getPlanUserDayId, planUserDay.getPlanUserDayId()));
         if (list.size() > 0) {
             PlanUserDay planInfo2 = list.get(0);
-            planInfo2.setPlanDayStatus(2);
+            planInfo2.setPlanDayStatus(PlanDayStatusEnum.RUNNING.getType());
             planUserDayService.updateById(planInfo2);
         }
         return R.ok();
     }
 
     @PutMapping("/update/plan")
-    @ApiOperation("结束计划")
+    @ApiOperation("更新计划")
     public R updatePlan(@RequestBody PlanInfoVO planInfoVO) {
         PlanUserDay planUserDay = planUserDayService.getById(planInfoVO.getPlanUserDayId());
         if (ObjectUtil.isNotEmpty(planUserDay)) {
-            planUserDay.setPlanDayStatus(2);
+            planUserDay.setPlanDayStatus(PlanDayStatusEnum.RUNNING.getType());
             planUserDayService.updateById(planUserDay);
         }
         return R.ok();
@@ -166,25 +188,21 @@ public class PlanController {
         PlanUserDay planUserDay = planUserDayService.getById(planInfoVO.getPlanUserDayId());
         if (ObjectUtil.isNotEmpty(planUserDay)) {
             PlanInfo byId = planInfoService.getById(planUserDay.getPlanId());
-            planUserDay.setPlanDayStatus(4);
+            planUserDay.setPlanDayStatus(PlanDayStatusEnum.FINISH.getType());
             if (byId.getPlanType() == 2) {
                 planUserDay.setEndTime(LocalDateTime.now());
             }
             planUserDayService.updateById(planUserDay);
             // 一次的计划结束
             if (byId.getPlanFrequencyType() == 0) {
-                byId.setPlanStatus(1);
+                byId.setPlanStatus(PlanStatusEnum.FINISH.getType());
                 planInfoService.updateById(byId);
             }
             // 经验计算
             Long exper = 100L;
-            if (byId.getPlanType() == 1) {
+            if (byId.getPlanType().equals(PlanTypeEnum.COUNT_DOWN.getType())) {
                 exper = byId.getPlanSecond();
             }
-            if (byId.getPlanType() == 2) {
-                exper = 100L;
-            }
-
             userExperService.addExper(planUserDay.getUserId(), exper);
             userStatService.addFinishs(byId.getUserId());
         }

@@ -41,7 +41,7 @@ public class PlanInfo extends BaseEntity<PlanInfo> {
     @ApiModelProperty(value = "计划名字")
     private String planName;
 
-    @ApiModelProperty(value = "计划类型 0：打卡  2：计时 3：限时")
+    @ApiModelProperty(value = "计划类型 0：打卡  2：倒计时 3：长计划")
     private Integer planType;
 
     @ApiModelProperty(value = "计划频次类型  0：一次  1.每日  2.自定义")

@@ -11,6 +11,7 @@ import com.time.manager.cms.enums.PlanFrequencyTypeEnum;
 import com.time.manager.cms.mapper.PlanUserDayMapper;
 import com.time.manager.cms.service.PlanInfoService;
 import com.time.manager.cms.service.PlanUserDayService;
+import com.time.manager.cms.service.UserExperService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PlanUserDayServiceImpl extends BaseServiceImpl<PlanUserDayMapper, PlanUserDay> implements PlanUserDayService {
     private final PlanInfoService planInfoService;
+    private final UserExperService userExperService;
 
     @Override
     public R initDayPlanUserList(Long userId) {
@@ -123,6 +125,8 @@ public class PlanUserDayServiceImpl extends BaseServiceImpl<PlanUserDayMapper, P
                 if (lastDays <= 0) {
                     planInfo.setPlanStatus(1);
                     planInfoService.save(planInfo);
+                    Long totalDays = LocalDateTimeUtil.between(planInfo.getPlanStartTime(), planInfo.getPlanEndTime()).toDays();
+                    userExperService.addExper(planUserDay.getUserId(), totalDays.intValue() * 100L);
                 }
                 if (lastDays >= 0) {
                     planUserDay.setPlanId(planInfo.getPlanId())
