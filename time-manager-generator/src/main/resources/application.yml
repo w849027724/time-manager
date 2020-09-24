@@ -20,5 +20,5 @@ package:
 strategy:
   config:
     super-entity-class: com.time.manage.common.mybatis.entity.BaseEntity
-    table-name: plan_info,plan_user_day
+    table-name: user_plan_times,plan_user_day
 

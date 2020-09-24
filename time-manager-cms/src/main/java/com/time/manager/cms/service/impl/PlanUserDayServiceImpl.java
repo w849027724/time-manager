@@ -41,8 +41,6 @@ public class PlanUserDayServiceImpl extends BaseServiceImpl<PlanUserDayMapper, P
 
     @Override
     public R initDayPlanUserList(Long userId) {
-
-
         List<PlanInfo> list = planInfoService.list(Wrappers.<PlanInfo>query()
                 .lambda().eq(PlanInfo::getUserId, userId).eq(PlanInfo::getPlanStatus, 0));
         if (list.size() > 0) {
@@ -71,7 +69,7 @@ public class PlanUserDayServiceImpl extends BaseServiceImpl<PlanUserDayMapper, P
                             Date date = new Date();
                             SimpleDateFormat dateFm = new SimpleDateFormat("EEEE");
                             String weekDay = dateFm.format(date);
-
+                            // 对比生成记录
                             String planFrequencyDays = e.getPlanFrequencyDays();
                             if (ObjectUtil.isNotEmpty(planFrequencyDays)) {
                                 String[] split = planFrequencyDays.split(",");
@@ -81,10 +79,6 @@ public class PlanUserDayServiceImpl extends BaseServiceImpl<PlanUserDayMapper, P
                                     }
                                 }
                             }
-                        case WORKING_DAY:
-                            break;
-                        case NON_WORKING_DAY:
-                            break;
                         default:
                     }
                 }
@@ -104,6 +98,7 @@ public class PlanUserDayServiceImpl extends BaseServiceImpl<PlanUserDayMapper, P
         PlanUserDay planUserDay = new PlanUserDay();
         switch (planInfo.getPlanType()) {
             case 0:
+                // 打卡
                 planUserDay.setPlanId(planInfo.getPlanId())
                         .setUserId(userId)
                         .setPlanDay(format)
@@ -111,6 +106,7 @@ public class PlanUserDayServiceImpl extends BaseServiceImpl<PlanUserDayMapper, P
                 this.save(planUserDay);
                 break;
             case 1:
+                // 倒计时
                 planUserDay.setPlanId(planInfo.getPlanId())
                         .setUserId(userId)
                         .setPlanDay(format)
@@ -118,19 +114,28 @@ public class PlanUserDayServiceImpl extends BaseServiceImpl<PlanUserDayMapper, P
                 this.save(planUserDay);
                 break;
             case 2:
-                //
+                // 长计划
                 Long finishDays = LocalDateTimeUtil.between(planInfo.getPlanStartTime(), LocalDateTime.now()).toDays();
-                Long lastDays = LocalDateTimeUtil.between(LocalDateTime.now(), planInfo.getPlanEndTime()).toDays();
-                planUserDay.setPlanId(planInfo.getPlanId())
-                        .setUserId(userId)
-                        .setPlanDay(format)
-                        .setPlanDayStatus(0)
-                        .setFinishDay(finishDays.intValue())
-                        .setLastDay(lastDays.intValue());
-                if (finishDays > 0) {
-                    planUserDay.setPlanDayStatus(1);
+                if (finishDays < 0) {
+                    finishDays = 0L;
                 }
-                this.save(planUserDay);
+                Long lastDays = LocalDateTimeUtil.between(LocalDateTime.now(), planInfo.getPlanEndTime()).toDays();
+                if (lastDays <= 0) {
+                    planInfo.setPlanStatus(1);
+                    planInfoService.save(planInfo);
+                }
+                if (lastDays >= 0) {
+                    planUserDay.setPlanId(planInfo.getPlanId())
+                            .setUserId(userId)
+                            .setPlanDay(format)
+                            .setPlanDayStatus(0)
+                            .setFinishDay(finishDays.intValue())
+                            .setLastDay(lastDays.intValue());
+                    if (finishDays > 0) {
+                        planUserDay.setPlanDayStatus(1);
+                    }
+                    this.save(planUserDay);
+                }
                 break;
             default:
         }

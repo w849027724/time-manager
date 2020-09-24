@@ -48,6 +48,7 @@ public class PlanController {
     public R<PlanViewVO> getPlanList(
             @RequestParam("userId") Long userId
     ) {
+        planUserDayService.initDayPlanUserList(userId);
         // 获取今天 yyyy-MM-dd 打卡
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String format = LocalDateTime.now().format(df);

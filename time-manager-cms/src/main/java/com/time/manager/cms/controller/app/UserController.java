@@ -4,11 +4,9 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.time.manage.common.core.utils.R;
 import com.time.manager.cms.entity.UserExper;
 import com.time.manager.cms.entity.UserInfo;
+import com.time.manager.cms.entity.UserPlanTimes;
 import com.time.manager.cms.entity.UserStat;
-import com.time.manager.cms.service.PlanUserDayService;
-import com.time.manager.cms.service.UserExperService;
-import com.time.manager.cms.service.UserInfoService;
-import com.time.manager.cms.service.UserStatService;
+import com.time.manager.cms.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -30,6 +28,7 @@ public class UserController {
     private final UserStatService userStatService;
     private final UserExperService userExperService;
     private final PlanUserDayService planUserDayService;
+    private final UserPlanTimesService userPlanTimesService;
 
     @GetMapping("/login")
     @ApiOperation("用户登录")
@@ -82,6 +81,12 @@ public class UserController {
                 .setPlanFinish(0)
                 .setPlanTotal(0);
         userStatService.save(userStat);
+        // 用户计划次数
+        UserPlanTimes userPlanTimes = new UserPlanTimes()
+                .setClockInPlanNum(5L)
+                .setLongPlanNum(1L)
+                .setTimingPlanNum(5L);
+        userPlanTimesService.save(userPlanTimes);
         return R.ok();
     }
 

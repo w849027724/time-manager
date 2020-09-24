@@ -12,13 +12,11 @@ import lombok.Getter;
 public enum PlanFrequencyTypeEnum {
 
     /**
-     *
+     * 打卡
      */
     ONCE(0, "一次"),
     DAILY(1, "每日"),
-    WORKING_DAY(2, "工作日"),
-    NON_WORKING_DAY(3, "非工作日"),
-    CUSTOMIZE(4, "自定义"),
+    CUSTOMIZE(2, "自定义"),
     ;
 
     private final Integer type;
