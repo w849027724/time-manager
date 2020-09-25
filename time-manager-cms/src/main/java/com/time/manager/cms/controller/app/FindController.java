@@ -7,6 +7,7 @@ import com.time.manager.cms.entity.PlanInfo;
 import com.time.manager.cms.entity.PlanStat;
 import com.time.manager.cms.entity.PlanUserDay;
 import com.time.manager.cms.entity.UserInfo;
+import com.time.manager.cms.security.IgnoreToken;
 import com.time.manager.cms.service.*;
 import com.time.manager.cms.vo.PlanInfoVO;
 import io.swagger.annotations.Api;
@@ -32,7 +33,7 @@ public class FindController {
     private final UserStatService userStatService;
     private final PlanUserDayService planUserDayService;
 
-
+    @IgnoreToken
     @GetMapping("/list")
     @ApiOperation("发现列表")
     public R<List<PlanInfoVO>> findList() {

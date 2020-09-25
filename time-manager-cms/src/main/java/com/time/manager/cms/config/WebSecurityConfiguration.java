@@ -68,7 +68,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //表单登录方式
                 .formLogin()
                 //登录请求url
-                .loginProcessingUrl("/login").permitAll()
+                .loginProcessingUrl("/app/user/login").permitAll()
                 .usernameParameter("userName")
                 .passwordParameter("userPassword")
                 //成功处理类

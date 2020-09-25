@@ -32,21 +32,13 @@ public class UserController {
     private final PlanUserDayService planUserDayService;
     private final UserPlanTimesService userPlanTimesService;
 
+    @IgnoreToken
     @GetMapping("/login")
     @ApiOperation("用户登录")
     public R login(
             @RequestParam("userName") String userName,
             @RequestParam("userPassword") String userPassword
     ) {
-        List<UserInfo> list = userInfoService.list(Wrappers.<UserInfo>query()
-                .lambda().eq(UserInfo::getUserName, userName));
-        if (list.size() > 0) {
-            UserInfo userInfo1 = list.get(0);
-            if (userInfo1.getUserPassword().equals(userPassword)) {
-                planUserDayService.initDayPlanUserList(userInfo1.getUserId());
-                return R.ok(userInfo1);
-            }
-        }
         return R.failed();
     }
 
