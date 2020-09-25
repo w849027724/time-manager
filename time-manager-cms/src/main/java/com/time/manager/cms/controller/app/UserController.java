@@ -6,12 +6,14 @@ import com.time.manager.cms.entity.UserExper;
 import com.time.manager.cms.entity.UserInfo;
 import com.time.manager.cms.entity.UserPlanTimes;
 import com.time.manager.cms.entity.UserStat;
+import com.time.manager.cms.security.IgnoreToken;
 import com.time.manager.cms.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,6 +50,7 @@ public class UserController {
         return R.failed();
     }
 
+    @IgnoreToken
     @GetMapping("/find/username")
     @ApiOperation("查询用户名")
     @ApiImplicitParams({
@@ -61,11 +64,12 @@ public class UserController {
         return R.ok(list.size());
     }
 
-
+    @IgnoreToken
     @PostMapping("/register")
     @ApiOperation("用户注册")
     public R register(@RequestBody UserInfo userInfo) {
         // 注册
+        userInfo.setUserPassword(new BCryptPasswordEncoder().encode(userInfo.getUserPassword()));
         userInfo.setUserAvatar("");
         userInfoService.save(userInfo);
         // 用户经验
