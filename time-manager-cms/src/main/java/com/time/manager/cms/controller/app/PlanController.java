@@ -151,7 +151,6 @@ public class PlanController {
     public R longTopTop(@RequestParam Long planId, @RequestParam Long userId) {
         List<PlanInfo> list = planInfoService.list(Wrappers.<PlanInfo>query().lambda()
                 .eq(PlanInfo::getUserId, userId)
-                .eq(PlanInfo::getPlanStatus, PlanStatusEnum.NOT_START.getType())
                 .eq(PlanInfo::getPlanType, PlanTypeEnum.LONG_PLAN.getType()));
         list.forEach(e -> {
             e.setPlanTop(PlanTopEnum.NO.getType());
