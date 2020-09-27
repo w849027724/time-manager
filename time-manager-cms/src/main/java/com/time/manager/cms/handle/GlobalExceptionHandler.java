@@ -2,6 +2,7 @@ package com.time.manager.cms.handle;
 
 import com.time.manage.common.core.exception.BizException;
 import com.time.manage.common.core.utils.R;
+import com.time.manager.cms.security.AuthException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.dao.DataAccessException;
 import org.springframework.validation.ObjectError;
@@ -36,6 +37,13 @@ public class GlobalExceptionHandler {
         log.error("操作失败，业务异常", e);
         ObjectError objectError = e.getBindingResult().getAllErrors().get(0);
         return R.failed("操作失败:" + objectError.getDefaultMessage());
+    }
+
+    @ExceptionHandler(AuthException.class)
+    @ResponseBody
+    public R authExceptionHandler(HttpServletRequest request, AuthException e) {
+        log.error("操作失败，业务异常", e);
+        return R.failed(e.getCode(), "操作失败:" + e.getMessage());
     }
 
     @ExceptionHandler(BizException.class)

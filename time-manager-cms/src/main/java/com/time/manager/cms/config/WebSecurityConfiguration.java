@@ -27,13 +27,10 @@ import javax.annotation.Resource;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-    public static final String LOGIN_PROCESSING_URL = "/auth/login";
     @Resource
     private UserDetailsService timeManagerUserDetailsService;
-
     @Resource
     private MyAuthenticationFilter myAuthenticationFilter;
-
     @Resource
     private AuthPermitUrlConfig authPermitUrlConfig;
 
@@ -68,7 +65,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //表单登录方式
                 .formLogin()
                 //登录请求url
-                .loginProcessingUrl("/app/user/login").permitAll()
+                .loginProcessingUrl("/app/login").permitAll()
                 .usernameParameter("userName")
                 .passwordParameter("userPassword")
                 //成功处理类

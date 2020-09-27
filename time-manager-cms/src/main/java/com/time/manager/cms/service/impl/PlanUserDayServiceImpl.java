@@ -124,9 +124,9 @@ public class PlanUserDayServiceImpl extends BaseServiceImpl<PlanUserDayMapper, P
                 Long lastDays = LocalDateTimeUtil.between(LocalDateTime.now(), planInfo.getPlanEndTime()).toDays();
                 if (lastDays <= 0) {
                     planInfo.setPlanStatus(1);
-                    planInfoService.save(planInfo);
+                    planInfoService.updateById(planInfo);
                     Long totalDays = LocalDateTimeUtil.between(planInfo.getPlanStartTime(), planInfo.getPlanEndTime()).toDays();
-                    userExperService.addExper(planUserDay.getUserId(), totalDays.intValue() * 100L);
+                    userExperService.addExper(planInfo.getUserId(), totalDays.intValue() * 100L);
                 }
                 if (lastDays >= 0) {
                     planUserDay.setPlanId(planInfo.getPlanId())

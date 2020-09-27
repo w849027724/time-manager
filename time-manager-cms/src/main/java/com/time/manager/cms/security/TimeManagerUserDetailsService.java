@@ -2,10 +2,12 @@ package com.time.manager.cms.security;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.google.common.collect.Sets;
 import com.time.manage.common.core.exception.BizException;
 import com.time.manager.cms.entity.UserInfo;
 import com.time.manager.cms.service.UserInfoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -31,7 +33,8 @@ public class TimeManagerUserDetailsService implements UserDetailsService {
                 .setPassword(new BCryptPasswordEncoder().encode(one.getUserPassword()))
                 .setUserId(one.getUserId())
                 .setUsername(one.getUserName())
-                .setNickName(one.getUserNickname());
+                .setNickName(one.getUserNickname())
+                .setAuthorities(Sets.newHashSet(new SimpleGrantedAuthority("user")));
     }
 
 

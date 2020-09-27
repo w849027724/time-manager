@@ -25,6 +25,9 @@ public class TimeManagerUserDetails implements UserDetails, Serializable {
 
     private String password;
 
+    @NonNull
+    private Collection<? extends GrantedAuthority> authorities;
+
     private boolean accountNonExpired = true;
 
     private boolean accountNonLocked = true;
@@ -33,12 +36,10 @@ public class TimeManagerUserDetails implements UserDetails, Serializable {
 
     private boolean enabled = true;
 
+    @NonNull
     private Long userId;
 
+    @NonNull
     private String nickName;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
 }

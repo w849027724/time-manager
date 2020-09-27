@@ -17,6 +17,6 @@ public interface SecurityConstants {
     /**
      * 默认不拦截路径列表
      */
-    List<String> IGNORE_URLS = Lists.newArrayList("/v2/api-docs", "/actuator/**", "/v2/**");
+    List<String> IGNORE_URLS = Lists.newArrayList("/v2/api-docs", "/actuator/**", "/v2/**", "/app/login");
 
 }

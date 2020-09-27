@@ -7,7 +7,10 @@ import com.time.manager.cms.entity.UserInfo;
 import com.time.manager.cms.entity.UserPlanTimes;
 import com.time.manager.cms.entity.UserStat;
 import com.time.manager.cms.security.IgnoreToken;
-import com.time.manager.cms.service.*;
+import com.time.manager.cms.service.UserExperService;
+import com.time.manager.cms.service.UserInfoService;
+import com.time.manager.cms.service.UserPlanTimesService;
+import com.time.manager.cms.service.UserStatService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -29,18 +32,7 @@ public class UserController {
     private final UserInfoService userInfoService;
     private final UserStatService userStatService;
     private final UserExperService userExperService;
-    private final PlanUserDayService planUserDayService;
     private final UserPlanTimesService userPlanTimesService;
-
-    @IgnoreToken
-    @GetMapping("/login")
-    @ApiOperation("用户登录")
-    public R login(
-            @RequestParam("userName") String userName,
-            @RequestParam("userPassword") String userPassword
-    ) {
-        return R.failed();
-    }
 
     @IgnoreToken
     @GetMapping("/find/username")

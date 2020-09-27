@@ -79,6 +79,11 @@ public class PlanController {
         if (collect.containsKey(2)) {
             List<PlanInfoVO> planInfoVOS = collect.get(2);
             planViewVO.setLongPlanInfo(planInfoVOS.get(0));
+            Map<Integer, List<PlanInfoVO>> collect1 = planInfoVOS.stream().collect(Collectors.groupingBy(PlanInfoVO::getPlanTop));
+            if (collect1.containsKey(PlanTopEnum.YES.getType())) {
+                List<PlanInfoVO> planInfoVOS1 = collect1.get(PlanTopEnum.YES.getType());
+                planViewVO.setLongPlanInfo(planInfoVOS1.get(0));
+            }
         }
         return R.ok(planViewVO);
     }
