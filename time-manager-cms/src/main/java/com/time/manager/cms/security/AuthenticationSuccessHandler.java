@@ -25,9 +25,6 @@ import java.util.concurrent.TimeUnit;
  **/
 public class AuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
-    private final String KEY_TOKEN = "auth:user:";
-    private final String TOKEN_USER = "auth:token:user:";
-
     @Resource
     private RedissonClient redissonClient;
 
@@ -47,11 +44,12 @@ public class AuthenticationSuccessHandler extends SavedRequestAwareAuthenticatio
     private String setUserToken(TimeManagerUserDetails accountDetails) {
         String content = JSONUtil.toJsonStr(accountDetails);
         String token = SecureUtil.md5(content);
+        accountDetails.setToken(token);
         // token存储
-        RBucket<Object> bucket = redissonClient.getBucket(KEY_TOKEN + token);
-        bucket.set(content, 7, TimeUnit.DAYS);
+        RBucket<Object> bucket = redissonClient.getBucket(SecurityConstants.KEY_TOKEN + token);
+        bucket.set(accountDetails, 7, TimeUnit.DAYS);
         // 用户token 关系
-        RBucket<Object> userToken = redissonClient.getBucket(TOKEN_USER + accountDetails.getUserId());
+        RBucket<Object> userToken = redissonClient.getBucket(SecurityConstants.TOKEN_USER + accountDetails.getUserId());
         userToken.set(token, 7, TimeUnit.DAYS);
         return token;
     }

@@ -7,6 +7,9 @@ import com.time.manager.cms.entity.UserInfo;
 import com.time.manager.cms.entity.UserPlanTimes;
 import com.time.manager.cms.entity.UserStat;
 import com.time.manager.cms.security.IgnoreToken;
+import com.time.manager.cms.security.SecurityConstants;
+import com.time.manager.cms.security.SecurityUtils;
+import com.time.manager.cms.security.TimeManagerUserDetails;
 import com.time.manager.cms.service.UserExperService;
 import com.time.manager.cms.service.UserInfoService;
 import com.time.manager.cms.service.UserPlanTimesService;
@@ -16,9 +19,11 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.redisson.api.RedissonClient;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -33,6 +38,17 @@ public class UserController {
     private final UserStatService userStatService;
     private final UserExperService userExperService;
     private final UserPlanTimesService userPlanTimesService;
+    @Resource
+    private RedissonClient redissonClient;
+
+    @GetMapping("/logout")
+    @ApiOperation("退出登录")
+    public R logout() {
+        TimeManagerUserDetails userInfo = SecurityUtils.getUserInfo();
+        redissonClient.getBucket(SecurityConstants.KEY_TOKEN + userInfo.getToken()).delete();
+        redissonClient.getBucket(SecurityConstants.TOKEN_USER + userInfo.getUserId()).delete();
+        return R.ok();
+    }
 
     @IgnoreToken
     @GetMapping("/find/username")

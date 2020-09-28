@@ -1,7 +1,6 @@
 package com.time.manager.cms.security;
 
 import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.time.manage.common.core.enums.ErrorCodeEnum;
 import com.time.manage.common.core.utils.R;
@@ -61,7 +60,6 @@ public class MyAuthenticationFilter extends OncePerRequestFilter {
         String authToken = requestHeader.trim();
         // token存储
         RBucket<Object> bucket = redissonClient.getBucket(SecurityConstants.KEY_TOKEN + authToken);
-        String o = (String) bucket.get();
         if (!bucket.isExists()) {
             // 权限不足
             this.sendUnToken(response);
@@ -71,8 +69,7 @@ public class MyAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private void setSecurityContextHolder(RBucket<Object> bucket) {
-        String o = (String) bucket.get();
-        TimeManagerUserDetails timeManagerUserDetails = JSONUtil.toBean(o, TimeManagerUserDetails.class);
+        TimeManagerUserDetails timeManagerUserDetails = (TimeManagerUserDetails) bucket.get();
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(timeManagerUserDetails, null, timeManagerUserDetails
                 .getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
