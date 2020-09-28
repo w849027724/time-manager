@@ -56,6 +56,7 @@ public class MyAuthenticationFilter extends OncePerRequestFilter {
             }
             // 权限不足
             this.sendUnToken(response);
+            return;
         }
         String authToken = requestHeader.trim();
         // token存储
@@ -63,6 +64,7 @@ public class MyAuthenticationFilter extends OncePerRequestFilter {
         if (!bucket.isExists()) {
             // 权限不足
             this.sendUnToken(response);
+            return;
         }
         this.setSecurityContextHolder(bucket);
         filterChain.doFilter(request, response);
