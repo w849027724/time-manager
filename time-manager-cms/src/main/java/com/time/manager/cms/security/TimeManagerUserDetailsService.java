@@ -11,7 +11,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -30,7 +29,7 @@ public class TimeManagerUserDetailsService implements UserDetailsService {
             throw new BizException("用户名有误！");
         }
         return new TimeManagerUserDetails()
-                .setPassword(new BCryptPasswordEncoder().encode(one.getUserPassword()))
+                .setPassword(one.getUserPassword())
                 .setUserId(one.getUserId())
                 .setUsername(one.getUserName())
                 .setNickName(one.getUserNickname())

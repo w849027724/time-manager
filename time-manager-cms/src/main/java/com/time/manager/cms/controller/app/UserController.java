@@ -87,6 +87,7 @@ public class UserController {
         userStatService.save(userStat);
         // 用户计划次数
         UserPlanTimes userPlanTimes = new UserPlanTimes()
+                .setUserId(userInfo.getUserId())
                 .setClockInPlanNum(5L)
                 .setLongPlanNum(1L)
                 .setTimingPlanNum(5L);
