@@ -6,8 +6,12 @@ import com.time.manage.common.mybatis.service.BaseServiceImpl;
 import com.time.manager.cms.entity.UserStat;
 import com.time.manager.cms.mapper.UserStatMapper;
 import com.time.manager.cms.service.UserStatService;
+import com.time.manager.cms.vo.UserStatVO;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -20,7 +24,10 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class UserStatServiceImpl extends BaseServiceImpl<UserStatMapper, UserStat> implements UserStatService {
+    private final UserStatMapper userStatMapper;
+
 
     @Override
     public void addFabulous(Long userId) {
@@ -51,5 +58,20 @@ public class UserStatServiceImpl extends BaseServiceImpl<UserStatMapper, UserSta
             one.setPlanTotal(one.getPlanTotal() + 1);
             this.updateById(one);
         }
+    }
+
+    @Override
+    public List<UserStatVO> getFabList() {
+        return userStatMapper.fabList();
+    }
+
+    @Override
+    public List<UserStatVO> getFinishList() {
+        return userStatMapper.finishList();
+    }
+
+    @Override
+    public List<UserStatVO> getTotalList() {
+        return userStatMapper.totalList();
     }
 }

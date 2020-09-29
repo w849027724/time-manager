@@ -105,7 +105,7 @@ public class PlanUserDayServiceImpl extends BaseServiceImpl<PlanUserDayMapper, P
                         .setUserId(userId)
                         .setPlanDay(format)
                         .setPlanDayStatus(0);
-                this.save(planUserDay);
+                this.savePlanDay(planInfo, planUserDay);
                 break;
             case 1:
                 // 倒计时
@@ -113,7 +113,7 @@ public class PlanUserDayServiceImpl extends BaseServiceImpl<PlanUserDayMapper, P
                         .setUserId(userId)
                         .setPlanDay(format)
                         .setPlanDayStatus(0);
-                this.save(planUserDay);
+                this.savePlanDay(planInfo, planUserDay);
                 break;
             case 2:
                 // 长计划
@@ -138,10 +138,16 @@ public class PlanUserDayServiceImpl extends BaseServiceImpl<PlanUserDayMapper, P
                     if (finishDays > 0) {
                         planUserDay.setPlanDayStatus(1);
                     }
-                    this.save(planUserDay);
+                    this.savePlanDay(planInfo, planUserDay);
                 }
                 break;
             default:
         }
+    }
+
+    private void savePlanDay(PlanInfo planInfo, PlanUserDay planUserDay) {
+        planInfo.setPlanTimes(planInfo.getPlanTimes() + 1);
+        planInfoService.updateById(planInfo);
+        this.save(planUserDay);
     }
 }

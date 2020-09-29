@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.time.manager.cms.mapper.UserStatMapper">
+
+    <select id="fabList" resultType="com.time.manager.cms.vo.UserStatVO">
+        SELECT
+            t1.*,
+            t2.user_avatar,
+            t2.user_nickname
+        FROM
+            user_stat t1
+                LEFT JOIN user_info t2 ON t1.user_id = t2.user_id
+        ORDER BY t1.plan_fabulous DESC
+        LIMIT 16
+    </select>
+    <select id="finishList" resultType="com.time.manager.cms.vo.UserStatVO">
+        SELECT
+            t1.*,
+            t2.user_avatar,
+            t2.user_nickname
+        FROM
+            user_stat t1
+                LEFT JOIN user_info t2 ON t1.user_id = t2.user_id
+        ORDER BY t1.plan_finish DESC
+        LIMIT 16
+    </select>
+    <select id="totalList" resultType="com.time.manager.cms.vo.UserStatVO">
+        SELECT
+            t1.*,
+            t2.user_avatar,
+            t2.user_nickname
+        FROM
+            user_stat t1
+                LEFT JOIN user_info t2 ON t1.user_id = t2.user_id
+        ORDER BY t1.plan_total DESC
+        LIMIT 16
+    </select>
+</mapper>

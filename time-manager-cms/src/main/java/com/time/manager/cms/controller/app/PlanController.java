@@ -168,9 +168,10 @@ public class PlanController {
         List<PlanUserDay> list = planUserDayService.list(Wrappers.<PlanUserDay>query()
                 .lambda().eq(PlanUserDay::getPlanUserDayId, planUserDay.getPlanUserDayId()));
         if (list.size() > 0) {
-            PlanUserDay planInfo2 = list.get(0);
-            planInfo2.setPlanDayStatus(PlanDayStatusEnum.RUNNING.getType());
-            planUserDayService.updateById(planInfo2);
+            PlanUserDay planUserDay1 = list.get(0);
+            planUserDay1.setPlanDayStatus(PlanDayStatusEnum.RUNNING.getType());
+            planUserDay1.setStartTime(LocalDateTime.now());
+            planUserDayService.updateById(planUserDay1);
         }
         return R.ok();
     }
@@ -193,9 +194,7 @@ public class PlanController {
         if (ObjectUtil.isNotEmpty(planUserDay)) {
             PlanInfo byId = planInfoService.getById(planUserDay.getPlanId());
             planUserDay.setPlanDayStatus(PlanDayStatusEnum.FINISH.getType());
-            if (byId.getPlanType() == 2) {
-                planUserDay.setEndTime(LocalDateTime.now());
-            }
+            planUserDay.setEndTime(LocalDateTime.now());
             planUserDayService.updateById(planUserDay);
             // 一次的计划结束
             if (byId.getPlanFrequencyType() == 0) {
@@ -222,9 +221,12 @@ public class PlanController {
             PlanInfo planInfo = list.get(0);
             PlanStat one = planStatService.getOne(Wrappers.<PlanStat>query().lambda().eq(PlanStat::getPlanId, planInfo.getPlanId()));
             planStatService.removeById(one.getPlanStatId());
+            List<PlanUserDay> list1 = planUserDayService.list(Wrappers.<PlanUserDay>query().lambda().eq(PlanUserDay::getPlanId, planId));
+            if (list1.size() > 0) {
+                planUserDayService.removeByIds(list1);
+            }
             planInfoService.removeById(planId);
         }
-
         return R.ok();
     }
 

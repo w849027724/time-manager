@@ -2,6 +2,9 @@ package com.time.manager.cms.service;
 
 import com.time.manage.common.mybatis.service.BaseService;
 import com.time.manager.cms.entity.UserStat;
+import com.time.manager.cms.vo.UserStatVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -21,4 +24,10 @@ public interface UserStatService extends BaseService<UserStat> {
     void addFinishs(Long userId);
 
     void addPlans(Long userId);
+
+    List<UserStatVO> getFabList();
+
+    List<UserStatVO> getFinishList();
+
+    List<UserStatVO> getTotalList();
 }
