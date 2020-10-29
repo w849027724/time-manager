@@ -6,6 +6,7 @@ set IMAGE_NAME=time-manager
 set IMAGE_VERSION=1.0.0
 set HARBOR_SERVER=registry.cn-hangzhou.aliyuncs.com
 
+call mvn clean package
 
 call docker login --username=18250792991 --password=wlj@123456 registry.cn-hangzhou.aliyuncs.com
 call docker build -f Dockerfile -t %HARBOR_SERVER%/%PROJECT_NAME%/%IMAGE_NAME%:%IMAGE_VERSION% .
