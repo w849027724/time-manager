@@ -2,6 +2,7 @@ package com.time.manager.cms.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.time.manage.common.mybatis.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -54,9 +55,11 @@ public class PlanInfo extends BaseEntity<PlanInfo> {
     private String planTime;
 
     @ApiModelProperty(value = "计划开始时间")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime planStartTime;
 
     @ApiModelProperty(value = "计划结束时间")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime planEndTime;
 
     @ApiModelProperty(value = "计划秒数")
