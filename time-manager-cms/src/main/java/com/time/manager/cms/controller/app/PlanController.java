@@ -20,6 +20,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -220,10 +221,12 @@ public class PlanController {
         if (list.size() > 0) {
             PlanInfo planInfo = list.get(0);
             PlanStat one = planStatService.getOne(Wrappers.<PlanStat>query().lambda().eq(PlanStat::getPlanId, planInfo.getPlanId()));
-            planStatService.removeById(one.getPlanStatId());
+            if(!ObjectUtils.isEmpty(one)){
+                planStatService.removeById(one.getPlanStatId());
+            }
             List<PlanUserDay> list1 = planUserDayService.list(Wrappers.<PlanUserDay>query().lambda().eq(PlanUserDay::getPlanId, planId));
             if (list1.size() > 0) {
-                planUserDayService.removeByIds(list1);
+                list1.forEach(planUserDayService::removeById);
             }
             planInfoService.removeById(planId);
         }
