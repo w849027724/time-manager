@@ -99,23 +99,23 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) {
         // AuthenticationTokenFilter will ignore the below paths
-//        web.ignoring()
-//                .antMatchers(HttpMethod.GET,
-//                        "/swagger-ui.html",
-//                        "/swagger-resources/**",
-//                        "/swagger/**",
-//                        "/webjars/springfox-swagger-ui/**",
-//                        "/**/v2/api-docs",
-//                        "/favicon.ico",
-//                        "/error",
-//                        "/**/favicon.ico",
-//                        "/*.html",
-//                        "/**/*.html",
-//                        "/**/*.css",
-//                        "/**/*.js",
-//                        "/**/*.map",
-//                        "/actuator/**");
-        web.ignoring().antMatchers("/**");
+        web.ignoring()
+                .antMatchers(HttpMethod.GET,
+                        "/swagger-ui.html",
+                        "/swagger-resources/**",
+                        "/swagger/**",
+                        "/webjars/springfox-swagger-ui/**",
+                        "/**/v2/api-docs",
+                        "/favicon.ico",
+                        "/error",
+                        "/**/favicon.ico",
+                        "/*.html",
+                        "/**/*.html",
+                        "/**/*.css",
+                        "/**/*.js",
+                        "/**/*.map",
+                        "/actuator/**");
+//        web.ignoring().antMatchers("/**");
     }
 
 
