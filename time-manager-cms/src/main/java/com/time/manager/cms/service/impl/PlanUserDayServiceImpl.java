@@ -7,7 +7,9 @@ import com.time.manage.common.core.utils.R;
 import com.time.manage.common.mybatis.service.BaseServiceImpl;
 import com.time.manager.cms.entity.PlanInfo;
 import com.time.manager.cms.entity.PlanUserDay;
+import com.time.manager.cms.enums.PlanDayStatusEnum;
 import com.time.manager.cms.enums.PlanFrequencyTypeEnum;
+import com.time.manager.cms.enums.PlanStatusEnum;
 import com.time.manager.cms.mapper.PlanUserDayMapper;
 import com.time.manager.cms.service.PlanInfoService;
 import com.time.manager.cms.service.PlanUserDayService;
@@ -104,7 +106,7 @@ public class PlanUserDayServiceImpl extends BaseServiceImpl<PlanUserDayMapper, P
                 planUserDay.setPlanId(planInfo.getPlanId())
                         .setUserId(userId)
                         .setPlanDay(format)
-                        .setPlanDayStatus(0);
+                        .setPlanDayStatus(PlanDayStatusEnum.UN_START.getType());
                 this.savePlanDay(planInfo, planUserDay);
                 break;
             case 1:
@@ -112,7 +114,7 @@ public class PlanUserDayServiceImpl extends BaseServiceImpl<PlanUserDayMapper, P
                 planUserDay.setPlanId(planInfo.getPlanId())
                         .setUserId(userId)
                         .setPlanDay(format)
-                        .setPlanDayStatus(0);
+                        .setPlanDayStatus(PlanDayStatusEnum.UN_START.getType());
                 this.savePlanDay(planInfo, planUserDay);
                 break;
             case 2:
@@ -123,7 +125,7 @@ public class PlanUserDayServiceImpl extends BaseServiceImpl<PlanUserDayMapper, P
                 }
                 Long lastDays = LocalDateTimeUtil.between(LocalDateTime.now(), planInfo.getPlanEndTime()).toDays();
                 if (lastDays <= 0) {
-                    planInfo.setPlanStatus(1);
+                    planInfo.setPlanStatus(PlanStatusEnum.FINISH.getType());
                     planInfoService.updateById(planInfo);
                     Long totalDays = LocalDateTimeUtil.between(planInfo.getPlanStartTime(), planInfo.getPlanEndTime()).toDays();
                     userExperService.addExper(planInfo.getUserId(), totalDays.intValue() * 100L);
@@ -132,11 +134,11 @@ public class PlanUserDayServiceImpl extends BaseServiceImpl<PlanUserDayMapper, P
                     planUserDay.setPlanId(planInfo.getPlanId())
                             .setUserId(userId)
                             .setPlanDay(format)
-                            .setPlanDayStatus(0)
+                            .setPlanDayStatus(PlanDayStatusEnum.UN_START.getType())
                             .setFinishDay(finishDays.intValue())
                             .setLastDay(lastDays.intValue());
                     if (finishDays > 0) {
-                        planUserDay.setPlanDayStatus(1);
+                        planUserDay.setPlanDayStatus(PlanDayStatusEnum.FINISH.getType());
                     }
                     this.savePlanDay(planInfo, planUserDay);
                 }
