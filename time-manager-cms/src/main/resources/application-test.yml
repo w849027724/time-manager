@@ -13,3 +13,9 @@ redisson:
   address: redis://124.70.40.151:6379
   password: 123456
   database: 10
+
+  #logger配置
+logging:
+  level:
+    #日志级别
+    root: DEBUG

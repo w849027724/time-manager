@@ -55,11 +55,11 @@ public class PlanInfo extends BaseEntity<PlanInfo> {
     private String planTime;
 
     @ApiModelProperty(value = "计划开始时间")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+//    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDateTime planStartTime;
 
     @ApiModelProperty(value = "计划结束时间")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+//    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDateTime planEndTime;
 
     @ApiModelProperty(value = "计划秒数")
