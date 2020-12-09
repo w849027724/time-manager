@@ -23,6 +23,8 @@ public class TimeManagerUserDetails implements UserDetails, Serializable {
 
     private String token;
 
+    private String userAvatar;
+
     private String password;
 
     @NonNull

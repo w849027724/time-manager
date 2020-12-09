@@ -29,6 +29,7 @@ public class TimeManagerUserDetailsService implements UserDetailsService {
             throw new BizException("用户名有误！");
         }
         return new TimeManagerUserDetails()
+                .setUserAvatar(one.getUserAvatar())
                 .setPassword(one.getUserPassword())
                 .setUserId(one.getUserId())
                 .setUsername(one.getUserName())
