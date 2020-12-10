@@ -19,6 +19,21 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-oauth2</artifactId>
         </dependency>
+        <!--缓存依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.time.manage.common.mybatis</groupId>
+            <artifactId>time-manager-common-mybatis</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.time.manager.common.core</groupId>
+            <artifactId>time-manager-common-core</artifactId>
+            <version>0.0.1</version>
+        </dependency>
     </dependencies>
 
 </project>

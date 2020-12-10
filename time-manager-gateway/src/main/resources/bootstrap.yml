@@ -1,10 +1,23 @@
 server:
   port: 33101
 
+
 spring:
   application:
     name: @artifactId@
+  redis:
+    port: 6379
+    host: 124.70.40.151
+    password: 123456
+    database: 0
   cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:30000
+      config:
+        server-addr: 127.0.0.1:30000
+        file-extension: yml
+        shared-dataids: application.yml
     gateway:
       routes:
         - id: time-manager-cms
@@ -16,6 +29,3 @@ spring:
           predicates:
             - Path=/auth/**
 
-nacos:
-  config:
-    server-addr: 127.0.0.1:30000

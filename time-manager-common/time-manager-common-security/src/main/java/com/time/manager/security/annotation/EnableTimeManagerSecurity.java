@@ -19,5 +19,5 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Import({ResourceServerConfig.class})
-public @interface EnableZlSecurity {
+public @interface EnableTimeManagerSecurity {
 }

@@ -1,8 +1,11 @@
 package com.time.manager.auth.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.time.manager.cms.api.dto.UserInfoDTO;
+import com.time.manager.cms.api.feign.UserFeignClient;
+import com.time.manager.security.dto.TimeManagerUserDetails;
+import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,15 +16,26 @@ import org.springframework.stereotype.Service;
  * @author wlj
  **/
 @Service
+@RequiredArgsConstructor
 public class UserService implements UserDetailsService {
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+    private final UserFeignClient userFeignClient;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        String encode = passwordEncoder.encode("123456");
+
+        UserInfoDTO data = userFeignClient.findByName(s).getData();
+        if (ObjectUtils.isNotEmpty(data)) {
+//            String encode = passwordEncoder.encode(data.getUserPassword());
 //        String encode = "{bcrypt}" + new BCryptPasswordEncoder().encode("123456");
-        User user = new User("admin", encode, AuthorityUtils.commaSeparatedStringToAuthorityList("client"));
-        return user;
+            TimeManagerUserDetails user = new TimeManagerUserDetails(
+                    data.getUserName(),
+                    data.getUserPassword(),
+                    AuthorityUtils.commaSeparatedStringToAuthorityList("client"));
+            user.setNickName(data.getUserNickname());
+            user.setUserAvatar(data.getUserAvatar());
+            return user;
+        }
+        return null;
     }
 }

@@ -1,14 +1,12 @@
 package com.time.manager.gateway;
 
-import com.alibaba.nacos.spring.context.annotation.config.NacosPropertySource;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.SpringCloudApplication;
 
 /**
  * @author wlj
  */
-@SpringBootApplication
-@NacosPropertySource(dataId = "time-manager-gateway", autoRefreshed = true)
+@SpringCloudApplication
 public class GatewayApplication {
 
     public static void main(String[] args) {
