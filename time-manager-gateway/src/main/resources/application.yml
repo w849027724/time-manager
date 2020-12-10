@@ -1,0 +1,21 @@
+server:
+  port: 33101
+
+spring:
+  application:
+    name: @artifactId@
+  cloud:
+    gateway:
+      routes:
+        - id: time-manager-cms
+          uri: lb://time-manager-cms
+          predicates:
+            - Path=/app/**
+        - id: time-manager-auth
+          uri: lb://time-manager-auth
+          predicates:
+            - Path=/auth/**
+
+nacos:
+  config:
+    server-addr: 127.0.0.1:30000

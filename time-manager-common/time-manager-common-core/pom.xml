@@ -28,6 +28,11 @@
             <!--在引用时请在maven中央仓库搜索最新版本号-->
             <version>2.0.2</version>
         </dependency>
+        <!-- feign-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
