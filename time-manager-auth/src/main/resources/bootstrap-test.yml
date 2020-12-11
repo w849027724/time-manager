@@ -1,5 +1,5 @@
 server:
-  port: 33101
+  port: 33201
 
 spring:
   application:
@@ -7,12 +7,10 @@ spring:
   cloud:
     nacos:
       discovery:
-        namespace: f0f34e34-3b4b-4e91-b98b-812c7fad10a6
         server-addr: 124.70.40.151:8848
+        namespace: 663ddd88-b0bc-41fa-9a37-6a2a41356faf
       config:
         server-addr: 124.70.40.151:8848
         file-extension: yml
         prefix: ${spring.application.name}
-        namespace: f0f34e34-3b4b-4e91-b98b-812c7fad10a6
-
-
+        namespace: 663ddd88-b0bc-41fa-9a37-6a2a41356faf

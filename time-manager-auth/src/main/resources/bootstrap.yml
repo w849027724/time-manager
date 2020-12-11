@@ -1,24 +1,16 @@
 server:
   port: 33201
 
-
 spring:
   application:
     name: @artifactId@
-  datasource:
-    url: jdbc:mysql://124.70.40.151:3306/time_manager?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true
-    username: root
-    password: w849027724
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  redis:
-    port: 6379
-    host: 124.70.40.151
-    password: 123456
-    database: 0
   cloud:
     nacos:
       discovery:
-        server-addr: 127.0.0.1:30000
+        server-addr: 124.70.40.151:8848
+        namespace: f0f34e34-3b4b-4e91-b98b-812c7fad10a6
       config:
-        server-addr: 127.0.0.1:30000
+        server-addr: 124.70.40.151:8848
         file-extension: yml
+        prefix: ${spring.application.name}
+        namespace: f0f34e34-3b4b-4e91-b98b-812c7fad10a6
