@@ -11,7 +11,12 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 认证服务器配置
@@ -29,14 +34,23 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private PasswordEncoder passwordEncoder;
     @Autowired
     private TokenStore redisTokenStore;
+    @Autowired
+    private TokenEnhancer tokenEnhancer;
 
     /**
      * 使用密码模式需要配置
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
+
+        TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
+        List<TokenEnhancer> enhancers = new ArrayList<>();
+        enhancers.add(tokenEnhancer);
+        enhancerChain.setTokenEnhancers(enhancers);
+
         endpoints.authenticationManager(authenticationManager)
                 .tokenStore(redisTokenStore)
+                .tokenEnhancer(enhancerChain)
                 .userDetailsService(userService);
     }
 

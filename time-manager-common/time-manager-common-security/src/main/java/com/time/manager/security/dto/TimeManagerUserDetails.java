@@ -24,6 +24,12 @@ public class TimeManagerUserDetails extends User {
     @Getter
     @Setter
     private String userAvatar;
+    /**
+     * userAvatar
+     */
+    @Getter
+    @Setter
+    private Integer userId;
 
     public TimeManagerUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
