@@ -10,6 +10,7 @@
     <groupId>com.time.manager</groupId>
     <artifactId>time-manager-gateway</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <name>time-manager-gateway</name>
     <description>time-manager-gateway</description>
 

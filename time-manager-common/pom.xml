@@ -18,6 +18,7 @@
         <module>time-manager-common-core</module>
         <module>time-manager-common-mybatis</module>
         <module>time-manager-common-swagger</module>
+        <module>time-manager-common-security</module>
     </modules>
 
 </project>

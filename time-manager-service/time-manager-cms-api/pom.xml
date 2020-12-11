@@ -10,6 +10,7 @@
     <groupId>com.time.manager</groupId>
     <artifactId>time-manager-cms-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <name>time-manager-cms-api</name>
     <description>time-manager-cms-api</description>
 

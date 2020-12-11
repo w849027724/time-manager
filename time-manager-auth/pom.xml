@@ -11,6 +11,7 @@
     <artifactId>time-manager-auth</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>time-manager-auth</name>
+    <packaging>jar</packaging>
     <description>time-manager-auth</description>
 
     <dependencies>
