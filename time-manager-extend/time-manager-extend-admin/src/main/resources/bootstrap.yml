@@ -14,12 +14,3 @@ spring:
         file-extension: yml
         prefix: ${spring.application.name}
         namespace: 9adda04e-904c-47f5-b1de-f22bce39fbf5
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    health:
-      show-details: ALWAYS
