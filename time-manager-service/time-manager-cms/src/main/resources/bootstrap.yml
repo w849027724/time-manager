@@ -16,3 +16,7 @@ spring:
         namespace: 9adda04e-904c-47f5-b1de-f22bce39fbf5
 
 
+security:
+  oauth2:
+    client:
+      ignoreUrls:

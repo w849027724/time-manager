@@ -7,7 +7,6 @@
         <artifactId>time-manager</artifactId>
         <version>0.0.1</version>
     </parent>
-    <groupId>com.time.manager</groupId>
     <artifactId>time-manager-auth</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>time-manager-auth</name>
@@ -15,10 +14,6 @@
     <description>time-manager-auth</description>
 
     <dependencies>
-        <dependency>
-            <groupId>com.time.manager</groupId>
-            <artifactId>time-manager-common-security</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.time.manager</groupId>
             <artifactId>time-manager-common-security</artifactId>

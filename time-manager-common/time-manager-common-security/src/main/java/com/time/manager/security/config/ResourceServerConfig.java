@@ -5,6 +5,7 @@ import com.time.manager.security.common.SecurityConstant;
 import com.time.manager.security.component.AuthPermitUrlConfig;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
@@ -16,6 +17,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 /**
  * @author wlj
  **/
+@ComponentScan("com.time.manager.security")
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {

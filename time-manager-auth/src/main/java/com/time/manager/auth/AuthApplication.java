@@ -18,13 +18,6 @@ import org.springframework.web.client.RestTemplate;
 @EnableDiscoveryClient
 public class AuthApplication {
 
-
-    @Bean
-    @LoadBalanced
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
-
     public static void main(String[] args) {
         SpringApplication.run(AuthApplication.class, args);
     }

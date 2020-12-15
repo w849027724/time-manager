@@ -22,20 +22,18 @@ public class UserService implements UserDetailsService {
     private final UserFeignClient userFeignClient;
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-
+    public TimeManagerUserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         UserInfoDTO data = userFeignClient.findByName(s).getData();
         if (ObjectUtils.isNotEmpty(data)) {
-//            String encode = passwordEncoder.encode(data.getUserPassword());
-//        String encode = "{bcrypt}" + new BCryptPasswordEncoder().encode("123456");
             TimeManagerUserDetails user = new TimeManagerUserDetails(
                     data.getUserName(),
                     data.getUserPassword(),
                     AuthorityUtils.commaSeparatedStringToAuthorityList("client"));
             user.setNickName(data.getUserNickname());
             user.setUserAvatar(data.getUserAvatar());
+            user.setUserId(data.getUserId());
             return user;
         }
-        return null;
+        throw  new UsernameNotFoundException("not find");
     }
 }

@@ -5,6 +5,7 @@ import com.time.manage.common.core.utils.R;
 import com.time.manager.cms.api.dto.UserInfoDTO;
 import com.time.manager.cms.entity.UserInfo;
 import com.time.manager.cms.service.UserInfoService;
+import com.time.manager.security.annotation.Ignore;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -28,6 +29,7 @@ import java.util.List;
 public class UserApi {
     private final UserInfoService userInfoService;
 
+    @Ignore
     @GetMapping("/find/username")
     @ApiOperation("查询用户名")
     @ApiImplicitParams({
