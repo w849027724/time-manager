@@ -19,23 +19,27 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-            <version>2.2.3.RELEASE</version>
         </dependency>
         <!--配置中心客户端-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-            <version>2.2.3.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.time.manager.common.core</groupId>
             <artifactId>time-manager-common-core</artifactId>
-            <version>0.0.1</version>
         </dependency>
         <dependency>
             <groupId>com.time.manage.common.mybatis</groupId>
             <artifactId>time-manager-common-mybatis</artifactId>
-            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.time.manager</groupId>
+            <artifactId>time-manager-cms-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.time.manager</groupId>
+            <artifactId>time-manager-common-security</artifactId>
         </dependency>
         <!-- web-->
         <dependency>
@@ -58,17 +62,7 @@
             <artifactId>redisson</artifactId>
             <version>3.11.4</version>
         </dependency>
-        <dependency>
-            <groupId>com.time.manager</groupId>
-            <artifactId>time-manager-cms-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.time.manager</groupId>
-            <artifactId>time-manager-common-security</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+
     </dependencies>
 
     <build>

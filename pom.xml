@@ -14,6 +14,7 @@
         <spring.cloud-version>Hoxton.SR8</spring.cloud-version>
         <lombok.version>1.18.16</lombok.version>
         <spring-boot.version>2.2.11.RELEASE</spring-boot.version>
+        <spring-boot-admin.version>2.3.1</spring-boot-admin.version>
     </properties>
 
 
@@ -48,6 +49,46 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!--注册中心客户端-->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+                <version>2.2.3.RELEASE</version>
+            </dependency>
+            <!--配置中心客户端-->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                <version>2.2.3.RELEASE</version>
+            </dependency>
+
+            <!-- 内部组件-->
+            <dependency>
+                <groupId>com.time.manager.common.core</groupId>
+                <artifactId>time-manager-common-core</artifactId>
+                <version>0.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.time.manager</groupId>
+                <artifactId>time-manager-common-security</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.time.manager.common.swagger</groupId>
+                <artifactId>time-manager-common-swagger</artifactId>
+                <version>0.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.time.manage.common.mybatis</groupId>
+                <artifactId>time-manager-common-mybatis</artifactId>
+                <version>0.0.1</version>
+            </dependency>
+            <!-- 内部api-->
+            <dependency>
+                <groupId>com.time.manager</groupId>
+                <artifactId>time-manager-cms-api</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -79,6 +120,12 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
+        </dependency>
+        <!-- springBootAdmin-->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>${spring-boot-admin.version}</version>
         </dependency>
         <!-- lang3-->
         <dependency>

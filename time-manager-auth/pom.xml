@@ -17,7 +17,14 @@
         <dependency>
             <groupId>com.time.manager</groupId>
             <artifactId>time-manager-common-security</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.time.manager.common.swagger</groupId>
+            <artifactId>time-manager-common-swagger</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.time.manager</groupId>
+            <artifactId>time-manager-cms-api</artifactId>
         </dependency>
         <!-- web-->
         <dependency>
@@ -29,26 +36,13 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-            <version>2.2.3.RELEASE</version>
         </dependency>
         <!--配置中心客户端-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-            <version>2.2.3.RELEASE</version>
         </dependency>
-        <dependency>
-            <groupId>com.time.manager.common.swagger</groupId>
-            <artifactId>time-manager-common-swagger</artifactId>
-            <version>0.0.1</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.time.manager</groupId>
-            <artifactId>time-manager-cms-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
+
     </dependencies>
 
     <build>
