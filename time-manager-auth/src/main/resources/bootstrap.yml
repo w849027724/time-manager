@@ -8,9 +8,9 @@ spring:
     nacos:
       discovery:
         server-addr: 124.70.40.151:8848
-        namespace: f0f34e34-3b4b-4e91-b98b-812c7fad10a6
+        namespace: 9adda04e-904c-47f5-b1de-f22bce39fbf5
       config:
         server-addr: 124.70.40.151:8848
         file-extension: yml
         prefix: ${spring.application.name}
-        namespace: f0f34e34-3b4b-4e91-b98b-812c7fad10a6
+        namespace: 9adda04e-904c-47f5-b1de-f22bce39fbf5
