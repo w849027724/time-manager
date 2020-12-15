@@ -3,6 +3,7 @@ package com.time.manager.security.component;
 
 import cn.hutool.core.util.ReUtil;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.google.common.collect.Lists;
 import com.time.manager.security.annotation.Ignore;
 import com.time.manager.security.common.SecurityConstant;
 import lombok.Getter;
@@ -40,10 +41,11 @@ public class AuthPermitUrlConfig implements InitializingBean {
 
     @Getter
     @Setter
-    private List<String> ignoreUrls = SecurityConstant.IGNORE_URLS;
+    private List<String> ignoreUrls = Lists.newArrayList();
 
     @Override
     public void afterPropertiesSet() {
+        ignoreUrls.addAll(SecurityConstant.IGNORE_URLS);
         RequestMappingHandlerMapping mapping = applicationContext.getBean(RequestMappingHandlerMapping.class);
         Map<RequestMappingInfo, HandlerMethod> map = mapping.getHandlerMethods();
 

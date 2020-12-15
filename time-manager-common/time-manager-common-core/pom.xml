@@ -21,6 +21,11 @@
             <artifactId>hutool-all</artifactId>
             <version>5.4.3</version>
         </dependency>
+        <!--server-api-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
         <!-- swagger-->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
