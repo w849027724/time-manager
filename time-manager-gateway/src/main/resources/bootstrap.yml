@@ -17,6 +17,15 @@ spring:
     sentinel:
       transport:
         port: 34102
-        dashboard: 127.0.0.1:34102
+        dashboard: 127.0.0.1:34103
       eager: true
-
+#      datasource:
+#        flow:
+#          nacos:
+#            NacosDataSource:
+#              server-addr: 124.70.40.151:8848
+#              namespace: 9adda04e-904c-47f5-b1de-f22bce39fbf5
+#              data-id: ${spring.application.name}-flow-rules
+#              group-id: SENTINEL_GROUP
+#              data-type: json
+#              rule-type: flow
