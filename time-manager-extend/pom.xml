@@ -17,6 +17,7 @@
 
     <modules>
         <module>time-manager-extend-admin</module>
+        <module>time-manager-extend-sentinel</module>
     </modules>
 
 </project>

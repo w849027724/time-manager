@@ -14,5 +14,9 @@ spring:
         file-extension: yml
         prefix: ${spring.application.name}
         namespace: 9adda04e-904c-47f5-b1de-f22bce39fbf5
-
+    sentinel:
+      transport:
+        port: 34102
+        dashboard: 127.0.0.1:34102
+      eager: true
 
