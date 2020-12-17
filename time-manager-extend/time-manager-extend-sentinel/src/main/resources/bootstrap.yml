@@ -24,3 +24,12 @@ sentinel:
   nacos:
     namespace: 9adda04e-904c-47f5-b1de-f22bce39fbf5
     server-addr: 124.70.40.151:8848
+
+spring:
+  application:
+    name: @artifactId@
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 124.70.40.151:8848
+        namespace: 9adda04e-904c-47f5-b1de-f22bce39fbf5
