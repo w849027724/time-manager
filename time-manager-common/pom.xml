@@ -19,6 +19,7 @@
         <module>time-manager-common-mybatis</module>
         <module>time-manager-common-swagger</module>
         <module>time-manager-common-security</module>
+        <module>time-manager-common-sentinel</module>
     </modules>
 
 </project>

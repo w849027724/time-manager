@@ -30,6 +30,10 @@
             <groupId>com.time.manager.common.swagger</groupId>
             <artifactId>time-manager-common-swagger</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.time.manager.common.sentinel</groupId>
+            <artifactId>time-manager-common-sentinel</artifactId>
+        </dependency>
         <!--注册中心客户端-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -40,33 +44,7 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-spring-cloud-gateway-adapter</artifactId>
-            <version>1.8.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-        </dependency>
-        <!--  sentinel AspectJ 的扩展用于自动定义资源 -->
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-annotation-aspectj</artifactId>
-            <version>1.8.0</version>
-        </dependency>
-        <!-- 通过nacos持久化流控规则 -->
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-datasource-nacos</artifactId>
-            <version>1.8.0</version>
-        </dependency>
-        <!-- sentinel客户端与dashboard通信依赖 -->
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-transport-simple-http</artifactId>
-            <version>1.8.0</version>
-        </dependency>
+
     </dependencies>
 
 

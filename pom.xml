@@ -15,6 +15,7 @@
         <lombok.version>1.18.16</lombok.version>
         <spring-boot.version>2.2.11.RELEASE</spring-boot.version>
         <spring-boot-admin.version>2.3.1</spring-boot-admin.version>
+        <sentinel.version>1.8.0</sentinel.version>
     </properties>
 
 
@@ -89,6 +90,11 @@
                 <groupId>com.time.manage.common.mybatis</groupId>
                 <artifactId>time-manager-common-mybatis</artifactId>
                 <version>0.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.time.manager.common.sentinel</groupId>
+                <artifactId>time-manager-common-sentinel</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <!-- 内部api-->
             <dependency>
