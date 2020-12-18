@@ -7,12 +7,12 @@
         <artifactId>time-manager-service</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>com.time.manager</groupId>
-    <artifactId>time-manager-cms-api</artifactId>
+    <groupId>com.time.manager.wallet.api</groupId>
+    <artifactId>time-manager-wallet-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>time-manager-cms-api</name>
-    <description>time-manager-cms-api</description>
+    <name>time-manager-wallet-api</name>
+    <description>time-manager-wallet-api</description>
 
     <dependencies>
         <dependency>

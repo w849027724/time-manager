@@ -96,10 +96,20 @@
                 <artifactId>time-manager-common-sentinel</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
+            <dependency>
+                <groupId>com.time.manager.common.sequence</groupId>
+                <artifactId>time-manager-common-sequence</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
             <!-- 内部api-->
             <dependency>
                 <groupId>com.time.manager</groupId>
                 <artifactId>time-manager-cms-api</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.time.manager.wallet.api</groupId>
+                <artifactId>time-manager-wallet-api</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
         </dependencies>
