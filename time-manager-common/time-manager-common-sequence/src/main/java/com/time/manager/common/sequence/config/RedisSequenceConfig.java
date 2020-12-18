@@ -1,6 +1,7 @@
 package com.time.manager.common.sequence.config;
 
 
+import com.time.manager.common.sequence.properties.RedisProperties;
 import com.time.manager.common.sequence.sequence.RedisSequence;
 import com.time.manager.common.sequence.sequence.Sequence;
 import lombok.AllArgsConstructor;
@@ -9,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.data.redis.support.collections.RedisProperties;
 
 
 @Configuration

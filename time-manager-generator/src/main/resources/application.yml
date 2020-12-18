@@ -3,22 +3,22 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://124.70.40.151:3306/time_manager?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true
+    url: jdbc:mysql://124.70.40.151:3306/time-wallet?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true
     username: root
-    password: 123456
+    password: w849027724
     driver-class-name: com.mysql.jdbc.Driver
 
 global:
   config:
     author: wlj
-    model: time-manager-cms
+    model: time-manager-service/time-manager-wallet
 
 package:
   config:
-    biz-module: cms
-    parent-path: com.time.manager.cms
+    biz-module: wallet
+    parent-path: com.time.manager.wallet
 strategy:
   config:
     super-entity-class: com.time.manage.common.mybatis.entity.BaseEntity
-    table-name: user_plan_times,plan_user_day
+    table-name: wallet
 

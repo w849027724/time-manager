@@ -14,4 +14,6 @@ import com.time.manage.common.mybatis.service.BaseService;
  */
 public interface UserInfoService extends BaseService<UserInfo> {
 
+    void testSeata();
+
 }
