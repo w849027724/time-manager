@@ -27,7 +27,7 @@ seata:
   tx-service-group: time-manager-wallet-group
   service:
     grouplist:
-      default: 127.0.0.1:8091
+      default: 124.70.40.151:8091
     vgroup-mapping:
       time-manager-wallet-group: default
     disable-global-transaction: false
