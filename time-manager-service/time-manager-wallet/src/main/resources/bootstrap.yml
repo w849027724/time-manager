@@ -20,3 +20,18 @@ security:
     client:
       ignoreUrls:
         - /test/**
+
+# seata配置
+seata:
+  enable-auto-data-source-proxy: false
+  tx-service-group: time-manager-wallet-group
+  service:
+    grouplist:
+      default: 127.0.0.1:8091
+    vgroup-mapping:
+      time-manager-wallet-group: default
+    disable-global-transaction: false
+  client:
+    rm:
+      report-success-enable: false
+

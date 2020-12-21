@@ -27,15 +27,10 @@ public class WalletController {
     @GetMapping("/dec")
     @ApiOperation("递减")
     public R decWallet() {
-
         List<Wallet> list = walletService.list();
-
         Wallet wallet = list.get(0);
-
         wallet.setWalletNum(999);
-
         walletService.updateById(wallet);
-
         return R.ok();
     }
 
