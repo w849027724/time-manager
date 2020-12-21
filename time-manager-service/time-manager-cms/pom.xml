@@ -62,26 +62,6 @@
             <artifactId>redisson</artifactId>
             <version>3.11.4</version>
         </dependency>
-
-
-        <!-- seata-->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-alibaba-seata</artifactId>
-            <version>2.1.0.RELEASE</version>
-        </dependency>
-        <!-- seata 1.1.0 版本 -->
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-spring-boot-starter</artifactId>
-            <version>1.1.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.time.manager.wallet.api</groupId>
-            <artifactId>time-manager-wallet-api</artifactId>
-        </dependency>
-
     </dependencies>
 
     <build>

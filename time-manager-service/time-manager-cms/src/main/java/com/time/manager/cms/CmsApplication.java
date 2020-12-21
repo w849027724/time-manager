@@ -2,7 +2,6 @@ package com.time.manager.cms;
 
 import com.time.manager.common.swagger.annotation.EnableSwagger2;
 import com.time.manager.security.annotation.EnableTimeManagerSecurity;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -12,7 +11,6 @@ import org.springframework.context.annotation.ComponentScan;
  * @author wlj
  */
 @EnableFeignClients(basePackages = "com.time.manager")
-@ComponentScan("com.time.manager")
 @EnableSwagger2
 @EnableTimeManagerSecurity
 @SpringCloudApplication

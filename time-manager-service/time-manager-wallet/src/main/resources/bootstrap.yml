@@ -15,26 +15,8 @@ spring:
         prefix: ${spring.application.name}
         namespace: 9adda04e-904c-47f5-b1de-f22bce39fbf5
 
-
 security:
   oauth2:
     client:
       ignoreUrls:
         - /test/**
-
-# Seata 配置项，对应 SeataProperties 类
-seata:
-  application-id: ${spring.application.name} # Seata 应用编号，默认为 ${spring.application.name}
-  tx-service-group: ${spring.application.name}-group # Seata 事务组编号，用于 TC 集群名
-  # Seata 服务配置项，对应 ServiceProperties 类
-  service:
-    # 虚拟组和分组的映射
-    vgroup-mapping:
-      order-service-group: default
-  # Seata 注册中心配置项，对应 RegistryProperties 类
-  registry:
-    type: nacos # 注册中心类型，默认为 file
-    nacos:
-      cluster: default # 使用的 Seata 分组
-      namespace:  9adda04e-904c-47f5-b1de-f22bce39fbf5 # Nacos 命名空间
-      serverAddr: 124.70.40.151:8848 # Nacos 服务地址
