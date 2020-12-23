@@ -19,6 +19,8 @@
         <module>time-manager-cms-api</module>
         <module>time-manager-wallet</module>
         <module>time-manager-wallet-api</module>
+        <module>time-manager-system</module>
+        <module>time-manager-system-api</module>
     </modules>
 
 </project>

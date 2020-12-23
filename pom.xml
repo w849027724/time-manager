@@ -112,6 +112,11 @@
                 <artifactId>time-manager-wallet-api</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
+            <dependency>
+                <groupId>com.time.manager.system.api</groupId>
+                <artifactId>time-manager-system-api</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

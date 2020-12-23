@@ -12,18 +12,21 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author wlj
  **/
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
-    private final PasswordEncoder passwordEncoder;
     private final UserFeignClient userFeignClient;
+    private HttpServletRequest request;
 
     @Override
     public TimeManagerUserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         UserInfoDTO data = userFeignClient.findByName(s).getData();
+        String scope = request.getParameter("scope");
         if (ObjectUtils.isNotEmpty(data)) {
             TimeManagerUserDetails user = new TimeManagerUserDetails(
                     data.getUserName(),
