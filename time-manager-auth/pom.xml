@@ -26,6 +26,10 @@
             <groupId>com.time.manager</groupId>
             <artifactId>time-manager-cms-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.time.manager.system.api</groupId>
+            <artifactId>time-manager-system-api</artifactId>
+        </dependency>
         <!-- web-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -42,6 +46,7 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
+
 
     </dependencies>
 

@@ -3,11 +3,13 @@ package com.time.manager.system.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.time.manage.common.mybatis.entity.BaseEntity;
+import com.time.manager.system.controller.api.dto.SysUserDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.beans.BeanUtils;
 
 /**
  * <p>
@@ -35,6 +37,13 @@ public class SysUser extends BaseEntity<SysUser> {
 
     @ApiModelProperty(value = "系统用户密码")
     private String sysUserPassword;
+
+
+    public SysUserDTO toSysUserDTO() {
+        SysUserDTO sysUserDTO = new SysUserDTO();
+        BeanUtils.copyProperties(this, sysUserDTO);
+        return sysUserDTO;
+    }
 
 
 }
