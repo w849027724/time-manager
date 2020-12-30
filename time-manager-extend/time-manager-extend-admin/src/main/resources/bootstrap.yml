@@ -9,8 +9,10 @@ spring:
       discovery:
         server-addr: 124.70.40.151:8848
         namespace: 9adda04e-904c-47f5-b1de-f22bce39fbf5
+        group: extend
       config:
         server-addr: 124.70.40.151:8848
         file-extension: yml
         prefix: ${spring.application.name}
         namespace: 9adda04e-904c-47f5-b1de-f22bce39fbf5
+        group: extend

@@ -21,6 +21,7 @@
         <module>time-manager-common-security</module>
         <module>time-manager-common-sentinel</module>
         <module>time-manager-common-sequence</module>
+        <module>time-manager-common-xxljob</module>
     </modules>
 
 </project>

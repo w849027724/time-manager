@@ -101,6 +101,11 @@
                 <artifactId>time-manager-common-sequence</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
+            <dependency>
+                <groupId>com.time.manager.common.xxljob</groupId>
+                <artifactId>time-manager-common-xxljob</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
             <!-- 内部api-->
             <dependency>
                 <groupId>com.time.manager</groupId>
