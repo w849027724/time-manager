@@ -1,0 +1,67 @@
+server:
+  port: 33101
+
+spring:
+  application:
+    name: @artifactId@
+  cloud:
+    nacos:
+      discovery:
+        namespace: 9adda04e-904c-47f5-b1de-f22bce39fbf5
+        server-addr: 124.70.40.151:8848
+      config:
+        server-addr: 124.70.40.151:8848
+        file-extension: yml
+        prefix: ${spring.application.name}
+        namespace: 9adda04e-904c-47f5-b1de-f22bce39fbf5
+    sentinel:
+      transport:
+        port: 34102
+        dashboard: 127.0.0.1:34103
+      eager: true
+      datasource:
+        authority:
+          nacos:
+            NacosDataSource:
+              server-addr: 124.70.40.151:8848
+              namespace: 9adda04e-904c-47f5-b1de-f22bce39fbf5
+              data-id: ${spring.application.name}-authority-rules
+              group-id: SENTINEL_GROUP
+              data-type: json
+              rule-type: authority
+        param-flow:
+          nacos:
+            NacosDataSource:
+              server-addr: 124.70.40.151:8848
+              namespace: 9adda04e-904c-47f5-b1de-f22bce39fbf5
+              data-id: ${spring.application.name}-param-rules
+              group-id: SENTINEL_GROUP
+              data-type: json
+              rule-type: param-flow
+        system:
+          nacos:
+            NacosDataSource:
+              server-addr: 124.70.40.151:8848
+              namespace: 9adda04e-904c-47f5-b1de-f22bce39fbf5
+              data-id: ${spring.application.name}-system-rules
+              group-id: SENTINEL_GROUP
+              data-type: json
+              rule-type: system
+        degrade:
+          nacos:
+            NacosDataSource:
+              server-addr: 124.70.40.151:8848
+              namespace: 9adda04e-904c-47f5-b1de-f22bce39fbf5
+              data-id: ${spring.application.name}-degrade-rules
+              group-id: SENTINEL_GROUP
+              data-type: json
+              rule-type: degrade
+        flow:
+          nacos:
+            NacosDataSource:
+              server-addr: 124.70.40.151:8848
+              namespace: 9adda04e-904c-47f5-b1de-f22bce39fbf5
+              data-id: ${spring.application.name}-flow-rules
+              group-id: SENTINEL_GROUP
+              data-type: json
+              rule-type: flow

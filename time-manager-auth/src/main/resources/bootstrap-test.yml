@@ -1,0 +1,16 @@
+server:
+  port: 33201
+
+spring:
+  application:
+    name: @artifactId@
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 124.70.40.151:8848
+        namespace: eb57b259-1866-44cc-ab4a-ba718cdf7128
+      config:
+        server-addr: 124.70.40.151:8848
+        file-extension: yml
+        prefix: ${spring.application.name}
+        namespace: eb57b259-1866-44cc-ab4a-ba718cdf7128

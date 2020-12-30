@@ -16,7 +16,7 @@ public class BaseEntity<T extends Model<?>> extends Model<T> {
 
     @ApiModelProperty(value = "创建人")
     @TableField(fill = FieldFill.INSERT)
-    private String createBy = "admin";
+    private Long createBy = 0L;
 
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)
@@ -24,7 +24,7 @@ public class BaseEntity<T extends Model<?>> extends Model<T> {
 
     @ApiModelProperty(value = "更新人")
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private String modifiedBy = "admin";
+    private Long modifiedBy = 0L;
 
     @ApiModelProperty(value = "更新时间")
     @TableField(fill = FieldFill.INSERT_UPDATE)

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.time.manager</groupId>
+        <artifactId>time-manager</artifactId>
+        <version>0.0.1</version>
+    </parent>
+    <artifactId>time-manager-auth</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>time-manager-auth</name>
+    <packaging>jar</packaging>
+    <description>time-manager-auth</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.time.manager</groupId>
+            <artifactId>time-manager-common-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.time.manager.common.swagger</groupId>
+            <artifactId>time-manager-common-swagger</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.time.manager</groupId>
+            <artifactId>time-manager-cms-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.time.manager.system.api</groupId>
+            <artifactId>time-manager-system-api</artifactId>
+        </dependency>
+        <!-- web-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--注册中心客户端-->
+        <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-config -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+        <!--配置中心客户端-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
